@@ -1,12 +1,14 @@
 # Personal website
 
-A single-page static site. One `index.html`, one `style.css`. No build step,
-no framework, no JS.
+A single-page static site. One `index.html`, one `style.css`, and a few
+lines of inline JS for the scroll-reveal effect. No build step, no framework.
 
-- System fonts, one accent color, mobile-first.
-- Light/dark follows the visitor's OS preference automatically.
+- Near-black with one vivid accent, Space Grotesk + Space Mono, film-grain
+  texture, fade/slide-in on scroll (respects reduced-motion).
+- Sections have anchor IDs for deep links: `#worlds`, `#ai`, `#personal`,
+  `#contact`.
 - Search `index.html` for `TODO` to find the social-link placeholders
-  (LinkedIn, Twitter, GitHub) that still need real URLs.
+  (X, Instagram, GitHub) that still need real URLs.
 
 ## Preview locally
 
