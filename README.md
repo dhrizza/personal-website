@@ -1,10 +1,10 @@
 # Personal website
 
-A single-page static site. One `index.html`, one `style.css`, and a few
-lines of inline JS for the scroll-reveal effect. No build step, no framework.
+A single-page static site. One `index.html`, one `style.css`. No build
+step, no framework, no JS.
 
-- Near-black with one vivid accent, Space Grotesk + Space Mono, film-grain
-  texture, fade/slide-in on scroll (respects reduced-motion).
+- Near-black with one restrained accent, Space Grotesk + Space Mono.
+  No animation, no texture; quiet on purpose.
 - Sections have anchor IDs for deep links: `#worlds`, `#ai`, `#personal`,
   `#contact`.
 - Search `index.html` for `TODO` to find the social-link placeholders
