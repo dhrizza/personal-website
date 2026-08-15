@@ -21,6 +21,14 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- ============================== BEACON (top bar) ==============================
+       A small signal flare at the very top of the page. It scrolls away with the
+       hero and points down to the friend map at #friendmap. -->
+  <a class="beacon" href="#friendmap">
+    <span class="beacon__text">If you're from North Korea, please click here.</span>
+    <span class="beacon__cue" aria-hidden="true">↓</span>
+  </a>
+
   <!-- ============================== HERO ============================== -->
   <header class="hero" id="top">
     <!-- Real nature photo lives in CSS (.hero__media). A dark gradient + solid
@@ -40,6 +48,7 @@
         <li><a href="#field-notes">Field Notes</a></li>
         <li><a href="#undergrowth">Undergrowth</a></li>
         <li><a href="#tender">The Tender</a></li>
+        <li><a href="#friendmap">The Map</a></li>
       </ul>
     </nav>
 
@@ -224,6 +233,55 @@
         </div>
       </div>
     </section>
+
+    <hr class="rule" />
+
+    <!-- ============================== THE FRIEND MAP ============================== -->
+    <section class="friendmap" id="friendmap">
+      <div class="wrap">
+        <header class="grove__head">
+          <p class="section-eyebrow">Fellow travelers</p>
+          <h2 class="grove__title">A friend in every country</h2>
+          <p class="grove__blurb">
+            These are the countries where I have friends from right now. The plan, which is
+            slow and probably ridiculous, is to keep going until there's a friend in every
+            country in the world.
+          </p>
+        </header>
+
+        <figure class="friendmap__figure">
+          <!-- The map draws itself from the list below. If JavaScript is off, the list
+               is still right there — it's the real content, the map just shows it. -->
+          <div class="friendmap__canvas" id="friendmap-canvas"></div>
+          <figcaption class="friendmap__caption" id="friendmap-caption">
+            <span class="friendmap__key"><i class="friendmap__swatch"></i>a friend here</span>
+            <span class="friendmap__key friendmap__key--wanted"><i class="friendmap__swatch"></i>still looking</span>
+            <span class="friendmap__tally" id="friendmap-tally"></span>
+          </figcaption>
+        </figure>
+
+        <p class="friendmap__wanted">
+          And if you're from <strong>North Korea</strong>, I especially want to meet you.
+          You're the hardest country on this map to reach, and the one I'd most like to
+          hear from. <a href="mailto:you@example.com">Say hello</a>. I'll write back.
+        </p>
+
+        <!-- ↓↓↓ TODO: THIS IS THE LIST TO EDIT ↓↓↓
+             One country per line. The map highlights whatever is in here, and the
+             tally counts it. Everyday names work ("USA", "UK", "South Korea",
+             "Ivory Coast") — spelling variants get matched for you.
+             Countries currently seeded from places dhrizza has actually spent time;
+             add the rest of your real list. -->
+        <h3 class="friendmap__listtitle">The list so far</h3>
+        <ul class="friendmap__list" id="friend-countries" data-wanted="North Korea">
+          <li>India</li>
+          <li>United States</li>
+          <li>Netherlands</li>
+          <li>Iraq</li>
+          <li>Morocco</li>
+        </ul>
+      </div>
+    </section>
   </main>
 
   <!-- ============================== FOOTER / COLOPHON ============================== -->
@@ -237,6 +295,7 @@
     </div>
   </footer>
 
+  <script src="assets/js/world-map-data.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>
