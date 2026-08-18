@@ -73,7 +73,9 @@
   /* HERO */
   header.hero{padding:56px 0 40px;border-bottom:1px solid var(--chalkline)}
   .hero-grid{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 48px;margin-top:14px}
-  h1.display{font-size:clamp(4rem,14vw,8rem);text-transform:none}
+  h1.display{font-size:clamp(2.5rem,7vw,4.5rem);text-transform:none}
+  .hero-name{display:flex;align-items:center;gap:clamp(14px,3vw,26px);min-width:0}
+  .portrait{width:clamp(96px,15vw,164px);aspect-ratio:1;object-fit:cover;flex:none;border:1px solid var(--chalkline)}
   .hero-side{max-width:24rem}
   .tagline{font-size:.95rem;line-height:1.55;color:var(--chalk)}
   .fn-toggle{
@@ -143,13 +145,6 @@
   .entry p{margin-top:4px;font-size:.83rem;line-height:1.6;color:var(--chalk-dim);max-width:56ch}
   .entry a{color:var(--sodium)}
   .entry a:hover{opacity:.8}
-
-  .todo{
-    display:inline-block;margin-top:8px;
-    font-family:"JetBrains Mono",monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;
-    color:var(--sodium);border:1px dashed hsl(46 78% 57% / .5);padding:3px 8px;
-  }
-  .todo::before{content:"+ "}
 
   /* DEEPER links */
   .doors{display:grid;grid-template-columns:1fr;gap:8px;margin-top:4px}
@@ -267,7 +262,12 @@
 
   <header class="hero">
     <div class="hero-grid">
-      <h1 class="display">dhrizza</h1>
+      <div class="hero-name">
+        <!-- Add the file at assets/img/portrait.jpg. Until it exists the
+             onerror handler drops the element, so the hero looks untouched. -->
+        <img class="portrait" src="assets/img/portrait.jpg" alt="" onerror="this.remove()">
+        <h1 class="display">dhrizza</h1>
+      </div>
       <div class="hero-side">
         <p class="tagline">An uneducated<button type="button" class="fn-toggle" aria-expanded="false" aria-controls="fn-uneducated" aria-label="Footnote on uneducated">*</button>, curious fool trying to understand what's really going on.</p>
         <div class="footnote" id="fn-uneducated" hidden>
@@ -291,7 +291,6 @@
       <li><span class="num data">05</span><div class="body"><b>Share it in public.</b><span>A podcast about asking better questions, and later a book.</span></div></li>
     </ul>
     <div class="invite"><b>I put this online to find people like me.</b> If you think about this stuff too, feel free to reach out.</div>
-    <span class="todo">Sharpen as these get concrete</span>
   </section>
 
   <section id="now" class="reveal">
@@ -337,7 +336,6 @@
       <li>At 14, made money online buying and reselling in-game items, building it to over $1,400, and resold game consoles. First time I noticed the pattern: buy cheap in one place, sell where it's worth more.</li>
       <li>Went to a strict, selective school in India that didn't fit how I learn (undiagnosed ADHD). Learned most from debates with smart friends, not from class.</li>
     </ul>
-    <span class="todo">Add vlog link URL</span>
   </section>
   <section id="questions" class="reveal">
     <div class="sec-head">
@@ -365,7 +363,6 @@
       <li><span class="qn data">18</span><span>Is climbing the career ladder still the reliable path it used to be?</span></li>
       <li><span class="qn data">19</span><span>Would you rather speak every language, or speak to animals?</span></li>
     </ol>
-    <span class="todo">Add more as they come up</span>
   </section>
 
   <section id="work" class="reveal">
@@ -589,7 +586,6 @@
     <div class="mapkey eyebrow">
       <span class="k"><span class="sw"></span>a friend here</span>
       <span class="k"><span class="sw still"></span>still looking</span>
-      <!-- TODO: keep this tally in step with the map. -->
       <span class="tally data">5 / 195</span>
     </div>
 
@@ -628,7 +624,6 @@
         <span class="arrow">→</span>
       </a>
     </div>
-    <span class="todo">Add destination links for each</span>
     <p class="nerd-note">A note on why this exists: a personal website is, by definition, a nerd thing to make. I know that. This whole site is for the nerdy side of me, and it's here so other nerds can find me. I don't think anyone else is going to read this far anyway.</p>
   </section>
 
