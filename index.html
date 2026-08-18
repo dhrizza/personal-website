@@ -1,242 +1,429 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>A Digital Wilderness</title>
-  <meta name="description" content="A wild patch of the internet — tended, not tamed. Essays, field notes, and things made, growing slowly over time." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dhruv</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --field:hsl(158 45% 9%);
+    --field-2:hsl(158 38% 13%);
+    --chalk:hsl(84 25% 94%);
+    --chalk-dim:hsl(120 10% 68%);
+    --chalkline:hsl(84 25% 94% / 0.18);
+    --chalkline-strong:hsl(84 25% 94% / 0.35);
+    --sodium:hsl(46 78% 57%);
+    --sodium-dim:hsl(46 78% 57% / 0.09);
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border:0 solid var(--chalkline)}
+  html{scroll-behavior:smooth}
+  body{
+    background-color:var(--field);
+    background-image:radial-gradient(120% 90% at 50% -10%, #17362a 0%, var(--field) 62%);
+    background-attachment:fixed;
+    color:var(--chalk);
+    font-family:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
+    font-size:15px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .display{
+    font-family:"Anton","Space Grotesk",sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.005em;
+    line-height:.9;
+    font-weight:400;
+  }
+  .eyebrow{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    font-size:.625rem;
+    line-height:1;
+  }
+  .data{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+  .muted{color:var(--chalk-dim)}
+  .sodium{color:var(--sodium)}
 
-  <meta property="og:title" content="A Digital Wilderness" />
-  <meta property="og:description" content="A wild patch of the internet — tended, not tamed." />
-  <meta property="og:type" content="website" />
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  @media(min-width:768px){.wrap{padding:0 40px}}
 
-  <!-- Fonts: Fraunces (display) + Newsreader (body) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&display=swap" rel="stylesheet" />
+  /* NAV */
+  nav.top{
+    position:sticky;top:0;z-index:20;
+    background:hsl(158 45% 9% / .88);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--chalkline);
+  }
+  .navrow{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+  .brand{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:1rem;letter-spacing:.02em}
+  .brand:hover{color:var(--sodium)}
+  .navlinks{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none}
+  .navlinks::-webkit-scrollbar{display:none}
+  .navlinks a{color:var(--chalk-dim);white-space:nowrap;transition:color .15s}
+  .navlinks a:hover{color:var(--sodium)}
 
-  <link rel="stylesheet" href="assets/css/main.css" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%94%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+  header.hero,section,footer{scroll-margin-top:64px}
+
+  /* HERO */
+  header.hero{padding:56px 0 40px;border-bottom:1px solid var(--chalkline)}
+  .hero-grid{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 48px;margin-top:14px}
+  h1.display{font-size:clamp(4rem,14vw,8rem)}
+  .hero-side{max-width:24rem}
+  .tagline{font-size:.95rem;line-height:1.55;color:var(--chalk)}
+  .fn-toggle{
+    font:inherit;color:var(--chalk-dim);background:none;border:0;padding:0 0 0 1px;cursor:pointer;
+    vertical-align:super;font-size:.7em;line-height:1;
+  }
+  .fn-toggle:hover{color:var(--chalk)}
+  .fn-toggle:focus-visible{outline:2px solid var(--sodium);outline-offset:2px}
+  .footnote{
+    margin-top:12px;border:1px solid var(--chalkline);border-left:2px solid var(--sodium);
+    padding:10px 12px;font-size:.8rem;line-height:1.6;color:var(--chalk-dim);
+  }
+  .footnote[hidden]{display:none}
+  .thesis{margin-top:14px;font-size:.85rem;line-height:1.65;color:var(--chalk-dim)}
+  .thesis strong{color:var(--chalk);font-weight:500}
+  .wip{
+    display:inline-flex;align-items:center;gap:8px;margin-top:18px;
+    border:1px dashed var(--chalkline-strong);padding:7px 12px;
+    color:var(--chalk-dim);
+  }
+  .wip .dot{width:6px;height:6px;background:var(--sodium);flex:none}
+
+  /* SECTIONS */
+  section,footer{padding:40px 0;border-bottom:1px solid var(--chalkline)}
+  footer{border-bottom:0;padding-bottom:88px}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:20px}
+  h2.display{font-size:clamp(1.9rem,6vw,3rem)}
+  .sec-note{max-width:22rem;font-size:.75rem;line-height:1.6;color:var(--chalk-dim);text-align:right}
+  @media(max-width:640px){.sec-head{flex-direction:column;align-items:flex-start}.sec-note{text-align:left}}
+
+  .lede{max-width:38rem;font-size:.9rem;color:var(--chalk-dim)}
+  .lede strong{color:var(--chalk);font-weight:500}
+
+  /* AIMS */
+  .aims{list-style:none;margin-top:14px}
+  .aims li{
+    display:flex;gap:14px;align-items:baseline;
+    border-top:1px solid var(--chalkline);padding:14px 0;
+  }
+  .aims li:first-child{border-top:0}
+  .aims .num{flex:none;width:20px;color:var(--sodium);font-size:.7rem}
+  .aims .body{min-width:0;flex:1}
+  .aims .body b{display:block;font-weight:500;font-size:.95rem;color:var(--chalk)}
+  .aims .body span{display:block;margin-top:2px;font-size:.8rem;color:var(--chalk-dim)}
+  .invite{
+    margin-top:22px;border:1px solid var(--chalkline-strong);
+    background:var(--sodium-dim);padding:16px 18px;max-width:34rem;
+    font-size:.95rem;line-height:1.6;
+  }
+  .invite b{font-weight:500}
+
+  /* RECORD entries — like the ranked list */
+  .entries{margin-top:4px}
+  .entry{
+    display:flex;gap:14px;align-items:flex-start;
+    border:1px solid var(--chalkline);padding:14px;margin-top:8px;
+    transition:border-color .15s;
+  }
+  .entry:hover{border-color:var(--chalkline-strong)}
+  .entry .num{
+    flex:none;font-family:"Anton",sans-serif;font-size:1.6rem;line-height:1;
+    color:hsl(84 25% 94% / 0.7);width:44px;
+  }
+  .entry .content{min-width:0;flex:1}
+  .entry .place{display:block;margin-bottom:5px;color:var(--chalk-dim)}
+  .entry h3{font-size:.98rem;font-weight:500;line-height:1.3}
+  .entry p{margin-top:4px;font-size:.83rem;line-height:1.6;color:var(--chalk-dim);max-width:56ch}
+  .entry a{color:var(--sodium)}
+  .entry a:hover{opacity:.8}
+
+  .todo{
+    display:inline-block;margin-top:8px;
+    font-family:"JetBrains Mono",monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--sodium);border:1px dashed hsl(46 78% 57% / .5);padding:3px 8px;
+  }
+  .todo::before{content:"+ "}
+
+  /* DEEPER links */
+  .doors{display:grid;grid-template-columns:1fr;gap:8px;margin-top:4px}
+  @media(min-width:640px){.doors{grid-template-columns:1fr 1fr}}
+  .door{
+    display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+    border:1px solid var(--chalkline);padding:16px;
+    transition:border-color .15s,background .15s;
+  }
+  .door:hover{border-color:var(--sodium);background:var(--sodium-dim)}
+  .door .dl{min-width:0}
+  .door .dname{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:1.35rem;line-height:1;letter-spacing:.01em}
+  .door .dsub{display:block;margin-top:6px;color:var(--chalk-dim)}
+  .door .arrow{flex:none;color:var(--sodium);font-family:"JetBrains Mono",monospace;font-size:.9rem;margin-top:2px}
+
+  /* HOW I WORK */
+  .how{list-style:none;max-width:44rem}
+  .how li{display:flex;gap:14px;border-top:1px solid var(--chalkline);padding:13px 0;align-items:baseline}
+  .how li:first-child{border-top:0}
+  .how .mark{flex:none;width:20px;color:var(--sodium);font-size:.7rem}
+  .how b{font-weight:500;color:var(--chalk)}
+  .how span{color:var(--chalk-dim);font-size:.85rem}
+
+  /* PERSONAL */
+  .personal p{max-width:36rem;font-size:.92rem;line-height:1.7}
+  .personal p+p{margin-top:12px}
+
+  /* CONTACT */
+  .email{font-family:"JetBrains Mono",monospace;font-size:1rem;letter-spacing:.02em}
+  .email a{border-bottom:1px solid var(--chalkline-strong);padding-bottom:2px;transition:color .15s,border-color .15s}
+  .email a:hover{color:var(--sodium);border-color:var(--sodium)}
+
+  /* HISTORY */
+  .bullets{list-style:none;max-width:62ch}
+  .bullets li{position:relative;padding:7px 0 7px 18px;font-size:.85rem;line-height:1.6;color:var(--chalk-dim)}
+  .bullets li::before{content:"";position:absolute;left:0;top:17px;width:8px;height:1px;background:var(--sodium);opacity:.7}
+  .bullets a{color:var(--sodium)}
+  .bullets.flat li{border-top:1px solid var(--chalkline)}
+  .bullets.flat li:first-child{border-top:0}
+
+  /* QUESTIONS */
+  .qs{list-style:none;max-width:62ch}
+  .qs li{display:flex;gap:14px;align-items:baseline;border-top:1px solid var(--chalkline);padding:12px 0}
+  .qs li:first-child{border-top:0}
+  .qs .qn{flex:none;width:22px;font-size:.65rem;color:var(--sodium);opacity:.8}
+  .qs li span:last-child{font-size:.9rem;line-height:1.5;color:var(--chalk)}
+
+  /* GO DEEPER */
+  .deeper{display:grid;gap:8px;grid-template-columns:1fr;margin-top:4px}
+  @media(min-width:640px){.deeper{grid-template-columns:1fr 1fr}}
+  .deep-card{
+    display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+    border:1px solid var(--chalkline);padding:18px 16px;
+    transition:border-color .15s,background .15s;
+  }
+  .deep-card:hover{border-color:var(--sodium);background:var(--sodium-dim)}
+  .deep-card .t{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:1.35rem;line-height:1;letter-spacing:.01em}
+  .deep-card .sub{display:block;margin-top:6px;font-family:"JetBrains Mono",monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--chalk-dim)}
+  .deep-card .arrow{flex:none;color:var(--sodium);font-family:"JetBrains Mono",monospace;font-size:.9rem;margin-top:2px}
+  .nerd-note{
+    margin-top:20px;max-width:44rem;
+    font-size:.8rem;line-height:1.65;color:var(--chalk-dim);
+    border-left:2px solid var(--chalkline-strong);padding-left:14px;
+  }
+
+  .reveal{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}
+    *{transition-duration:.001ms!important}
+  }
+</style>
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<body id="top">
 
-  <!-- ============================== HERO ============================== -->
-  <header class="hero" id="top">
-    <!-- Real nature photo lives in CSS (.hero__media). A dark gradient + solid
-         fallback colour keep the title legible even if the image is slow. -->
-    <div class="hero__media" aria-hidden="true"></div>
+<nav class="top">
+  <div class="wrap navrow">
+    <a href="#top" class="brand">Dhruv</a>
+    <div class="navlinks eyebrow">
+      <a href="#headed">Headed</a>
+      <a href="#now">Current</a>
+      <a href="#meta">Game</a>
+      <a href="#record">History</a>
+      <a href="#questions">Questions</a>
+      <a href="#work">Committed</a>
+      <a href="#personal">Personal</a>
+      <a href="#deeper">Deeper</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
 
-    <nav class="nav" aria-label="Primary">
-      <a class="nav__brand" href="#top">
-        <span class="nav__wordmark">dhrizza</span>
-      </a>
-      <button class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav__menu" id="nav-menu">
-        <li><a href="#enter">The Wild</a></li>
-        <li><a href="#wanderings">Wanderings</a></li>
-        <li><a href="#field-notes">Field Notes</a></li>
-        <li><a href="#undergrowth">Undergrowth</a></li>
-        <li><a href="#tender">The Tender</a></li>
-      </ul>
-    </nav>
+<div class="wrap">
 
-    <div class="hero__title">
-      <h1 class="hero__h1">A Digital <em>Wilderness</em></h1>
-      <p class="hero__sub">
-        A wild patch of the internet — some of it cleared and cared for,
-        much of it left to grow as it will. Nothing here is finished.
-      </p>
+  <header class="hero">
+    <div class="hero-grid">
+      <h1 class="display">Dhruv</h1>
+      <div class="hero-side">
+        <p class="tagline">An uneducated<button type="button" class="fn-toggle" aria-expanded="false" aria-controls="fn-uneducated" aria-label="Footnote on uneducated">*</button>, curious fool trying to understand what's really going on.</p>
+        <div class="footnote" id="fn-uneducated" hidden>
+          I wear this as a badge, not a wound. I don't wonder whether I'm smart. Anyone who's sincerely curious either already is, or will get there. Curiosity compounds into intelligence over time. School is one path to it, not the only one, and not the one I needed.
+        </div>
+        <p class="thesis">The internet connects us to every human being in the world. I made this to meet people like me.</p>
+        <div class="wip eyebrow"><span class="dot"></span>Work in progress</div>
+      </div>
     </div>
   </header>
 
-  <main id="main">
-    <!-- ============================== ENTER / MANIFESTO ============================== -->
-    <section class="enter" id="enter">
-      <div class="wrap wrap--narrow">
-        <p class="section-eyebrow">Enter the wilderness</p>
-        <p class="lede">
-          Most of the internet is a lawn — mown, fenced, sorted newest-first,
-          and arranged to keep you scrolling. This is not that.
-        </p>
-        <p>
-          A <em>digital garden</em> is a lovely idea: a place you cultivate slowly, where
-          pages are tended and revised instead of published and forgotten. But a garden is
-          orderly. It is weeded. What I'm making is a little more untamed — a
-          <strong>digital wilderness</strong>. I clear a few trails and tend what needs tending,
-          but I let the rest grow wild: half-formed thoughts, tangled essays, things I'm still
-          learning out loud. You won't find a tidy timeline. You'll find a landscape.
-        </p>
-        <p>
-          Roam it however you like. Some paths are well-worn. Some end abruptly.
-          Come back later and the undergrowth will have shifted.
-        </p>
-
-        <div class="legend" role="note" aria-label="How to read the growth stages">
-          <span class="legend__title">Everything here is growing</span>
-          <ul class="legend__list">
-            <li><span class="stage">🌱 Seed</span> just planted — a rough thought</li>
-            <li><span class="stage">🌿 Sapling</span> taking shape, still growing</li>
-            <li><span class="stage">🌳 Wildwood</span> rooted, but never truly done</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================== WANDERINGS / ESSAYS ============================== -->
-    <section class="grove" id="wanderings">
-      <div class="wrap">
-        <header class="grove__head">
-          <h2 class="grove__title">Wanderings</h2>
-          <p class="grove__blurb">Longer paths — essays and the ideas I keep circling back to.</p>
-        </header>
-
-        <!-- TODO: Replace these placeholder essays with your real writing. -->
-        <ul class="cards">
-          <li class="card">
-            <a class="card__link" href="#">
-              <span class="card__meta"><span class="stage">🌳 Wildwood</span><span class="card__date">2026</span></span>
-              <h3 class="card__title">On tending wild things</h3>
-              <p class="card__excerpt">Why I stopped trying to keep a tidy blog and started letting the ideas grow over each other instead.</p>
-              <span class="card__more">follow the trail →</span>
-            </a>
-          </li>
-          <li class="card">
-            <a class="card__link" href="#">
-              <span class="card__meta"><span class="stage">🌿 Sapling</span><span class="card__date">2026</span></span>
-              <h3 class="card__title">The lawn and the meadow</h3>
-              <p class="card__excerpt">A meditation on feeds, algorithms, and what we lose when everything is sorted newest-first.</p>
-              <span class="card__more">follow the trail →</span>
-            </a>
-          </li>
-          <li class="card">
-            <a class="card__link" href="#">
-              <span class="card__meta"><span class="stage">🌱 Seed</span><span class="card__date">2026</span></span>
-              <h3 class="card__title">Notes toward a slower internet</h3>
-              <p class="card__excerpt">Scattered beginnings. This one isn't ready — but nothing here is, and that's the point.</p>
-              <span class="card__more">follow the trail →</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <hr class="rule" />
-
-    <!-- ============================== FIELD NOTES ============================== -->
-    <section class="notes" id="field-notes">
-      <div class="wrap">
-        <header class="grove__head">
-          <h2 class="grove__title">Field Notes</h2>
-          <p class="grove__blurb">Short, living entries. Observations, half-thoughts, things I want to remember. These change often.</p>
-        </header>
-
-        <!-- TODO: These are the "wild" interlinked notes. Add, revise, and cross-link freely. -->
-        <ul class="notes__list">
-          <li class="note">
-            <span class="note__leaf" aria-hidden="true">🌱</span>
-            <div>
-              <h3 class="note__title">A thing I read today</h3>
-              <p>Drop a quote, a link, a passing idea here. Field notes don't need to be finished — they just need to be captured before they blow away.</p>
-              <span class="note__stamp">planted recently</span>
-            </div>
-          </li>
-          <li class="note">
-            <span class="note__leaf" aria-hidden="true">🌿</span>
-            <div>
-              <h3 class="note__title">Something I'm chewing on</h3>
-              <p>An idea that's grown a bit since I first planted it. Cross-link it to a Wandering when it's ready to become an essay.</p>
-              <span class="note__stamp">revised twice</span>
-            </div>
-          </li>
-          <li class="note">
-            <span class="note__leaf" aria-hidden="true">🌳</span>
-            <div>
-              <h3 class="note__title">A belief that has taken root</h3>
-              <p>Some notes stop being tentative. They don't get finished so much as they get deep. This is one of those.</p>
-              <span class="note__stamp">tended for a while</span>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <hr class="rule" />
-
-    <!-- ============================== UNDERGROWTH / PROJECTS ============================== -->
-    <section class="grove" id="undergrowth">
-      <div class="wrap">
-        <header class="grove__head">
-          <h2 class="grove__title">Undergrowth</h2>
-          <p class="grove__blurb">Things I've made and things I'm making — projects, experiments, and roots I'm still putting down.</p>
-        </header>
-
-        <!-- TODO: Replace with your real projects, side quests, and experiments. -->
-        <ul class="cards cards--projects">
-          <li class="card">
-            <a class="card__link" href="#">
-              <h3 class="card__title">A project worth showing</h3>
-              <p class="card__excerpt">What it is, why you made it, and where it lives. A screenshot or repo link fits nicely here.</p>
-              <span class="card__more">see it →</span>
-            </a>
-          </li>
-          <li class="card">
-            <a class="card__link" href="#">
-              <h3 class="card__title">An experiment in progress</h3>
-              <p class="card__excerpt">Something half-built. In a wilderness, that's allowed to be on display.</p>
-              <span class="card__more">see it →</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <hr class="rule" />
-
-    <!-- ============================== THE TENDER / ABOUT ============================== -->
-    <section class="tender" id="tender">
-      <div class="wrap wrap--split">
-        <div class="tender__portrait">
-          <!-- TODO: swap this for a real photo of you (nature-y fits the theme). -->
-          <div class="tender__placeholder"><span>your photo here</span></div>
-        </div>
-        <div class="tender__body">
-          <p class="section-eyebrow">The Tender</p>
-          <h2 class="tender__name">Hello, I'm <em>dhrizza</em></h2>
-          <p>
-            I keep this wilderness. Write a few sentences here about who you are and what you
-            care about — the through-line that runs under everything growing on this site.
-            Keep it human. It doesn't need to be a résumé.
-          </p>
-          <p>
-            You might mention what you make, what you're currently obsessed with, and where
-            someone should go next if they want to wander deeper.
-          </p>
-          <ul class="tender__links">
-            <!-- TODO: replace with your real links -->
-            <li><a href="mailto:you@example.com">Email</a></li>
-            <li><a href="#">Newsletter</a></li>
-            <li><a href="#">GitHub</a></li>
-            <li><a href="#">Elsewhere</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- ============================== FOOTER / COLOPHON ============================== -->
-  <footer class="foot">
-    <div class="wrap foot__inner">
-      <p class="foot__line">A digital wilderness — tended by hand, growing since <span id="year">2026</span>.</p>
-      <p class="foot__colophon">
-        No trackers, no feed, no fences.
-        <a href="#top">Back to the treeline ↑</a>
-      </p>
+  <section id="headed" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">Where I'm headed</h2>
     </div>
+    <ul class="aims">
+      <li><span class="num data">01</span><div class="body"><b>Build my own thing that solves a real problem.</b><span>Something that helps people, that I own.</span></div></li>
+      <li><span class="num data">02</span><div class="body"><b>Get really good at using AI.</b><span>First job: automate video editing so making content is easy.</span></div></li>
+      <li><span class="num data">03</span><div class="body"><b>Study the big questions directly.</b><span>How consciousness works, and whether deep meditation can change how clearly you think.</span></div></li>
+      <li><span class="num data">04</span><div class="body"><b>Go to the Amazon and study life in the wild.</b><span>Partly to learn, partly to see for myself whether nature is god.</span></div></li>
+      <li><span class="num data">05</span><div class="body"><b>Share it in public.</b><span>A podcast about asking better questions, and later a book.</span></div></li>
+    </ul>
+    <div class="invite"><b>I put this online to find people like me.</b> If you think about this stuff too, feel free to reach out.</div>
+    <span class="todo">Sharpen as these get concrete</span>
+  </section>
+
+  <section id="now" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">Current world</h2>
+    </div>
+    <p class="lede">Prepping for a trip to live in the Amazon rainforest and study nature, so I can understand reality a bit better.</p>
+  </section>
+
+  <section id="meta" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">The game I'm playing</h2>
+    </div>
+    <p class="lede">If you're simplifying, I'm a traveler. The higher-level game is experimenting with ways to bring these worlds back to other people.</p>
+    <p class="lede" style="margin-top:12px">I'm trying long-form podcasts, code (this site is one attempt), and maybe shorter video. The space is saturated, so I'm still looking for a better angle. That's why I don't make much content yet.</p>
+    <div class="invite" style="margin-top:20px"><b>The thing I keep noticing:</b> a lot of people seem to be in the wrong world for them. I'd like to help them find the right one. Worst case, it's entertaining.</div>
+  </section>
+
+  <section id="record" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">History</h2>
+      <p class="sec-note">Worlds I've been in. Newest first.</p>
+    </div>
+    <p class="nerd-note" style="margin-top:0;margin-bottom:22px">No traditional work history here, and most of my potential is still unactualized. I've recently worked out some principles that are helping me move faster. This is also only the good stuff: plenty of failures are either too boring to list or things I'm not comfortable putting on the internet.</p>
+
+    <ul class="bullets flat">
+      <li>Left the University of Virginia in 2024 to get good at applying AI in the real world.</li>
+      <li>Built and launched my own product: real reviews of cities for people picking where to live, like Google Maps reviews but for places to live. Built mostly solo with AI, and flew to Thailand to talk to users in person.</li>
+      <li>Worked with a Y Combinator founder making high-quality POV footage for top AI video labs. Shut it down when it wasn't what we wanted to build.</li>
+      <li>Lived in Bangalore for a while to save money and look for a co-founder, in one of the biggest tech hubs outside Silicon Valley.</li>
+      <li>Lived as a resident volunteer at the San Francisco Zen Center. Meditated daily, mostly to think more clearly.</li>
+      <li>Been to more than 20 countries, often for a while, usually couch surfing with locals.</li>
+      <li>Hitchhiked about 3,000 km across the Sahara, and rode an iron-ore freight train through the desert, partly to get over a fear of death.</li>
+      <li>Biked and hitchhiked through Egypt, camping by the pyramids (<a href="#" target="_blank" rel="noopener">vlogs here</a>).</li>
+      <li>Couchsurfed in Iraq, which the US government says not to visit at all. Did my own research first. Far more normal than the news makes out.</li>
+      <li>Transferred into the University of Virginia from community college on need-based aid I aimed for. About 17% get in.</li>
+      <li>Edited video for the UVA business school: multi-camera, color, sound, motion graphics.</li>
+      <li>Moved from India to the US alone at 18, during the pandemic. Set up residency, paid my own way, did community college online while working.</li>
+      <li>A sales veteran mentored me and I joined his startup at 18. Ran the tech and automation (HubSpot) and part of operations.</li>
+      <li>Built and ran an entrepreneur-in-residence program end to end, including interviewing the founders.</li>
+      <li>Ran my own dog-walking and house-sitting business. 4.9 rating on a full schedule, doing all the sales and marketing myself.</li>
+      <li>Odd jobs to get by: machine operator for a military parts supplier, Walmart shelves, Target electronics.</li>
+      <li>At 14, made money online buying and reselling in-game items, building it to over $1,400, and resold game consoles. First time I noticed the pattern: buy cheap in one place, sell where it's worth more.</li>
+      <li>Went to a strict, selective school in India that didn't fit how I learn (undiagnosed ADHD). Learned most from debates with smart friends, not from class.</li>
+    </ul>
+    <span class="todo">Add vlog link URL</span>
+  </section>
+  <section id="questions" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">Open questions</h2>
+      <p class="sec-note">The ones I keep circling back to. No answers yet.</p>
+    </div>
+    <ol class="qs">
+      <li><span class="qn data">01</span><span>Why is there something rather than nothing?</span></li>
+      <li><span class="qn data">02</span><span>What's the most profound realization humanity has had?</span></li>
+      <li><span class="qn data">03</span><span>How does a human being know they're not deluding themselves? Where do the blind spots hide?</span></li>
+      <li><span class="qn data">04</span><span>What does following your intuition actually mean, and how do you know when to trust it?</span></li>
+      <li><span class="qn data">05</span><span>Is deep thinking a calling, or a symptom of being unhappy?</span></li>
+      <li><span class="qn data">06</span><span>What does a world outside self-help look like?</span></li>
+      <li><span class="qn data">07</span><span>Is there still meaningful work to be done in philosophy and psychology?</span></li>
+      <li><span class="qn data">08</span><span>What makes some people grow from a hard experience while others only carry it?</span></li>
+      <li><span class="qn data">09</span><span>How do the few people who work on what they genuinely want end up there?</span></li>
+      <li><span class="qn data">10</span><span>Can someone make money simply as a result of becoming more themselves?</span></li>
+      <li><span class="qn data">11</span><span>Does big action necessarily mean meaningful action?</span></li>
+      <li><span class="qn data">12</span><span>How should a person act while accepting they might be wrong about everything?</span></li>
+      <li><span class="qn data">13</span><span>Which experiments are reversible, and which ones cost more than time?</span></li>
+      <li><span class="qn data">14</span><span>What power structures keep a person trapped? Who's actually in control of a life?</span></li>
+      <li><span class="qn data">15</span><span>Which worlds are welcoming to outsiders and newcomers?</span></li>
+      <li><span class="qn data">16</span><span>What's the Florida of any given country? A useful question for understanding a culture.</span></li>
+      <li><span class="qn data">17</span><span>Who comes to mind when someone says "successful," and why that person?</span></li>
+      <li><span class="qn data">18</span><span>Is climbing the career ladder still the reliable path it used to be?</span></li>
+      <li><span class="qn data">19</span><span>Would you rather speak every language, or speak to animals?</span></li>
+    </ol>
+    <span class="todo">Add more as they come up</span>
+  </section>
+
+  <section id="work" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">What I'm committed to</h2>
+    </div>
+    <ul class="how">
+      <li><span class="mark data">→</span><span><b>A meditation practice</b> without the frills.</span></li>
+      <li><span class="mark data">→</span><span><b>Learning,</b> and following my curiosity wherever it goes.</span></li>
+      <li><span class="mark data">→</span><span><b>I like to learn broadly.</b> And I go deep when I think it's necessary.</span></li>
+      <li><span class="mark data">→</span><span><b>Living by principles that are ethical</b> and grounded in something that's a net benefit for the world.</span></li>
+      <li><span class="mark data">→</span><span><b>Being high agency</b> and solving problems.</span></li>
+      <li><span class="mark data">→</span><span><b>Developing my relationship with the computer.</b> It's still early.</span></li>
+      <li><span class="mark data">→</span><span><b>I learn fast with a bit of coaching.</b> Give me one person to ask hard questions and room to work, and I move quickly.</span></li>
+      <li><span class="mark data">→</span><span><b>I have an unusual tolerance for being the outsider</b> in any situation.</span></li>
+    </ul>
+  </section>
+
+  <section id="personal" class="personal reveal">
+    <div class="sec-head">
+      <h2 class="display">Personal</h2>
+    </div>
+    <p>I was conceived by a sperm donor, and I'm also a third culture kid.</p>
+    <p>If you're either of those things, I'd love to meet you.</p>
+  </section>
+
+  <section id="deeper" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">Go deeper</h2>
+      <p class="sec-note">Each of these opens into its own corner. More coming as I write them.</p>
+    </div>
+    <div class="deeper">
+      <a class="deep-card" href="#">
+        <span><span class="t">Adventure</span><span class="sub">travel</span></span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="deep-card" href="#">
+        <span><span class="t">Understanding reality</span><span class="sub">meta</span></span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="deep-card" href="#">
+        <span><span class="t">Interesting people</span><span class="sub">the ones worth studying</span></span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="deep-card" href="#">
+        <span><span class="t">Forever books</span><span class="sub">and podcasts, videos, articles — everything I've found useful</span></span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+    <span class="todo">Add destination links for each</span>
+    <p class="nerd-note">A note on why this exists: a personal website is, by definition, a nerd thing to make. I know that. This whole site is for the nerdy side of me, and it's here so other nerds can find me. I don't think anyone else is going to read this far anyway.</p>
+  </section>
+
+  <footer id="contact" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">Get in touch</h2>
+    </div>
+    <p class="email"><a href="mailto:dhruv.ambashtha@gmail.com">dhruv.ambashtha@gmail.com</a></p>
   </footer>
 
-  <script src="assets/js/main.js"></script>
+</div>
+
+<script>
+  (function(){
+    var els=document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.08});
+    els.forEach(function(e){io.observe(e)});
+  })();
+  (function(){
+    var btn=document.querySelector('.fn-toggle');
+    if(!btn)return;
+    btn.addEventListener('click',function(){
+      var note=document.getElementById(btn.getAttribute('aria-controls'));
+      var open=btn.getAttribute('aria-expanded')==='true';
+      btn.setAttribute('aria-expanded',String(!open));
+      if(note){note.hidden=open;}
+    });
+  })();
+</script>
 </body>
 </html>
