@@ -44,5 +44,4 @@ and projected with Natural Earth 1. To add a country as the list grows:
 ## Still to fill in
 
 - Hero picture at `assets/img/portrait.jpg`
-- Vlog link URL in the History section
 - Destination links for the four "Go deeper" cards
