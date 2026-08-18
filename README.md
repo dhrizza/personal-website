@@ -34,9 +34,18 @@ python3 -m http.server 8000
 
 ## Deploy
 
-Any static host works — GitHub Pages, Netlify, Cloudflare Pages, etc.
-For **GitHub Pages**: push to your default branch and enable Pages
-(Settings → Pages → deploy from branch, root).
+Any static host works, but this repo is wired for **GitHub Pages** out of the
+box via `.github/workflows/pages.yml`: every push to `main` publishes the site.
+There's no build step — the workflow uploads the repo as-is.
+
+One-time setup: **Settings → Pages → Source: GitHub Actions**. That's it.
+
+To point a domain at it, add it under **Settings → Pages → Custom domain**, then
+at your registrar create either four `A` records on `@` (`185.199.108.153`,
+`185.199.109.153`, `185.199.110.153`, `185.199.111.153`) for an apex domain, or
+one `CNAME` on `www` → `dhrizza.github.io`. Tick **Enforce HTTPS** once the
+certificate provisions. With the Actions source, the custom domain lives in the
+Pages settings — no `CNAME` file in the repo to keep in sync.
 
 ## Make it yours — the placeholders to fill in
 
