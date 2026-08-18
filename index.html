@@ -171,9 +171,9 @@
   .personal p+p{margin-top:12px}
 
   /* CONTACT */
-  .email{font-family:"JetBrains Mono",monospace;font-size:1rem;letter-spacing:.02em}
-  .email a{border-bottom:1px solid var(--chalkline-strong);padding-bottom:2px;transition:color .15s,border-color .15s}
-  .email a:hover{color:var(--sodium);border-color:var(--sodium)}
+  .contactlink{font-family:"JetBrains Mono",monospace;font-size:1rem;letter-spacing:.02em}
+  .contactlink a{border-bottom:1px solid var(--chalkline-strong);padding-bottom:2px;transition:color .15s,border-color .15s}
+  .contactlink a:hover{color:var(--sodium);border-color:var(--sodium)}
 
   /* HISTORY */
   .bullets{list-style:none;max-width:62ch}
@@ -215,15 +215,12 @@
   .mc{fill:var(--field-2);stroke:var(--chalkline);stroke-width:.7;stroke-linejoin:round}
   .mc.friend{fill:var(--sodium);stroke:hsl(158 45% 9% / .6)}
   .mc.target{fill:var(--chalk);stroke:hsl(158 45% 9% / .6)}
-  .mring{fill:none;stroke:var(--chalk-dim);stroke-width:1;stroke-dasharray:4 4}
-  .mleader{stroke:var(--chalk-dim);stroke-width:1}
-  .mlabel{font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;fill:var(--chalk-dim)}
   .mapkey{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;margin-top:14px;color:var(--chalk-dim)}
   .mapkey .k{display:inline-flex;align-items:center;gap:8px}
   .mapkey .sw{width:9px;height:9px;flex:none;background:var(--sodium)}
   .mapkey .sw.still{background:var(--chalk)}
   .mapkey .tally{margin-left:auto;color:var(--chalk)}
-  @media(max-width:640px){.mapkey .tally{margin-left:0;flex-basis:100%}.mlabel,.mring,.mleader{display:none}}
+  @media(max-width:640px){.mapkey .tally{margin-left:0;flex-basis:100%}}
   .countries{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin-top:14px}
   .countries li{border:1px solid var(--chalkline);padding:6px 11px;color:var(--chalk-dim)}
   .invite a{color:var(--sodium);border-bottom:1px solid hsl(46 78% 57% / .4)}
@@ -573,11 +570,6 @@
     <path class="mc" id="c-kosovo" d="M663,141L662,140L662,139L661,138L662,137L663,136L664,136L664,137L665,137L666,138L666,139L666,140L665,140L663,141Z"><title>Kosovo</title></path>
     <path class="mc" id="c-trinidad-and-tobago" d="M395,262L397,261L398,261L398,264L395,265L394,264L395,263L395,262Z"><title>Trinidad and Tobago</title></path>
     <path class="mc" id="c-s--sudan" d="M703,290L700,287L699,285L697,286L696,286L695,287L693,286L691,283L691,282L688,280L687,278L686,276L684,274L683,273L682,271L679,270L680,270L681,269L682,265L683,264L686,263L686,264L688,266L689,267L690,266L692,266L693,267L696,267L696,266L698,265L698,264L700,264L702,266L704,265L706,263L707,260L707,258L706,257L708,257L708,256L710,256L710,259L710,262L712,263L712,265L712,267L713,267L713,270L712,271L711,271L710,273L712,273L713,275L714,277L715,278L717,282L715,285L713,287L711,289L709,289L706,289L704,289L703,290Z"><title>S. Sudan</title></path>
-    <g class="mannot">
-    <circle class="mring" cx="990" cy="147" r="19"/>
-    <line class="mleader" x1="1004" y1="134" x2="1024" y2="117"/>
-    <text class="mlabel" x="1028" y="120">North Korea</text>
-    </g>
     </svg>
     </div>
     <div class="mapkey eyebrow">
@@ -628,7 +620,7 @@
     <div class="sec-head">
       <h2 class="display">Get in touch</h2>
     </div>
-    <p class="email"><a href="mailto:dhruv.ambashtha@gmail.com">dhruv.ambashtha@gmail.com</a></p>
+    <p class="contactlink"><a href="https://x.com/dhrizza" target="_blank" rel="me noopener">x.com/dhrizza</a></p>
   </footer>
 
 </div>
