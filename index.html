@@ -1,161 +1,663 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dru</title>
-  <meta name="description" content="Applied AI generalist. A short record of what I've done and how I work." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>dhrizza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --field:hsl(158 45% 9%);
+    --field-2:hsl(158 38% 13%);
+    --chalk:hsl(84 25% 94%);
+    --chalk-dim:hsl(120 10% 68%);
+    --chalkline:hsl(84 25% 94% / 0.18);
+    --chalkline-strong:hsl(84 25% 94% / 0.35);
+    --sodium:hsl(46 78% 57%);
+    --sodium-dim:hsl(46 78% 57% / 0.09);
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border:0 solid var(--chalkline)}
+  html{scroll-behavior:smooth}
+  body{
+    background-color:var(--field);
+    background-image:radial-gradient(120% 90% at 50% -10%, #17362a 0%, var(--field) 62%);
+    background-attachment:fixed;
+    color:var(--chalk);
+    font-family:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
+    font-size:15px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .display{
+    font-family:"Anton","Space Grotesk",sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.005em;
+    line-height:.9;
+    font-weight:400;
+  }
+  .eyebrow{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    font-size:.625rem;
+    line-height:1;
+  }
+  .data{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+  .muted{color:var(--chalk-dim)}
+  .sodium{color:var(--sodium)}
 
-  <meta property="og:title" content="Dru" />
-  <meta property="og:description" content="Applied AI generalist. A short record of what I've done and how I work." />
-  <meta property="og:type" content="website" />
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  @media(min-width:768px){.wrap{padding:0 40px}}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet" />
+  /* NAV */
+  nav.top{
+    position:sticky;top:0;z-index:20;
+    background:hsl(158 45% 9% / .88);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--chalkline);
+  }
+  .navrow{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+  .brand{font-family:"Anton",sans-serif;text-transform:none;font-size:1.05rem;letter-spacing:.02em}
+  .brand:hover{color:var(--sodium)}
+  .navlinks{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none}
+  .navlinks::-webkit-scrollbar{display:none}
+  .navlinks a{color:var(--chalk-dim);white-space:nowrap;transition:color .15s}
+  .navlinks a:hover{color:var(--sodium)}
 
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230b0b0b'/%3E%3Ccircle cx='50' cy='50' r='24' fill='%23e8541c'/%3E%3C/svg%3E" />
+  header.hero,section,footer{scroll-margin-top:64px}
+
+  /* HERO */
+  header.hero{padding:56px 0 40px;border-bottom:1px solid var(--chalkline)}
+  .hero-grid{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 48px;margin-top:14px}
+  h1.display{font-size:clamp(4rem,14vw,8rem);text-transform:none}
+  .hero-side{max-width:24rem}
+  .tagline{font-size:.95rem;line-height:1.55;color:var(--chalk)}
+  .fn-toggle{
+    font:inherit;color:var(--chalk-dim);background:none;border:0;padding:0 0 0 1px;cursor:pointer;
+    vertical-align:super;font-size:.7em;line-height:1;
+  }
+  .fn-toggle:hover{color:var(--chalk)}
+  .fn-toggle:focus-visible{outline:2px solid var(--sodium);outline-offset:2px}
+  .footnote{
+    margin-top:12px;border:1px solid var(--chalkline);border-left:2px solid var(--sodium);
+    padding:10px 12px;font-size:.8rem;line-height:1.6;color:var(--chalk-dim);
+  }
+  .footnote[hidden]{display:none}
+  .thesis{margin-top:14px;font-size:.85rem;line-height:1.65;color:var(--chalk-dim)}
+  .thesis strong{color:var(--chalk);font-weight:500}
+  .wip{
+    display:inline-flex;align-items:center;gap:8px;margin-top:18px;
+    border:1px dashed var(--chalkline-strong);padding:7px 12px;
+    color:var(--chalk-dim);
+  }
+  .wip .dot{width:6px;height:6px;background:var(--sodium);flex:none}
+
+  /* SECTIONS */
+  section,footer{padding:40px 0;border-bottom:1px solid var(--chalkline)}
+  footer{border-bottom:0;padding-bottom:88px}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:20px}
+  h2.display{font-size:clamp(1.9rem,6vw,3rem)}
+  .sec-note{max-width:22rem;font-size:.75rem;line-height:1.6;color:var(--chalk-dim);text-align:right}
+  @media(max-width:640px){.sec-head{flex-direction:column;align-items:flex-start}.sec-note{text-align:left}}
+
+  .lede{max-width:38rem;font-size:.9rem;color:var(--chalk-dim)}
+  .lede strong{color:var(--chalk);font-weight:500}
+
+  /* AIMS */
+  .aims{list-style:none;margin-top:14px}
+  .aims li{
+    display:flex;gap:14px;align-items:baseline;
+    border-top:1px solid var(--chalkline);padding:14px 0;
+  }
+  .aims li:first-child{border-top:0}
+  .aims .num{flex:none;width:20px;color:var(--sodium);font-size:.7rem}
+  .aims .body{min-width:0;flex:1}
+  .aims .body b{display:block;font-weight:500;font-size:.95rem;color:var(--chalk)}
+  .aims .body span{display:block;margin-top:2px;font-size:.8rem;color:var(--chalk-dim)}
+  .invite{
+    margin-top:22px;border:1px solid var(--chalkline-strong);
+    background:var(--sodium-dim);padding:16px 18px;max-width:34rem;
+    font-size:.95rem;line-height:1.6;
+  }
+  .invite b{font-weight:500}
+
+  /* RECORD entries — like the ranked list */
+  .entries{margin-top:4px}
+  .entry{
+    display:flex;gap:14px;align-items:flex-start;
+    border:1px solid var(--chalkline);padding:14px;margin-top:8px;
+    transition:border-color .15s;
+  }
+  .entry:hover{border-color:var(--chalkline-strong)}
+  .entry .num{
+    flex:none;font-family:"Anton",sans-serif;font-size:1.6rem;line-height:1;
+    color:hsl(84 25% 94% / 0.7);width:44px;
+  }
+  .entry .content{min-width:0;flex:1}
+  .entry .place{display:block;margin-bottom:5px;color:var(--chalk-dim)}
+  .entry h3{font-size:.98rem;font-weight:500;line-height:1.3}
+  .entry p{margin-top:4px;font-size:.83rem;line-height:1.6;color:var(--chalk-dim);max-width:56ch}
+  .entry a{color:var(--sodium)}
+  .entry a:hover{opacity:.8}
+
+  .todo{
+    display:inline-block;margin-top:8px;
+    font-family:"JetBrains Mono",monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--sodium);border:1px dashed hsl(46 78% 57% / .5);padding:3px 8px;
+  }
+  .todo::before{content:"+ "}
+
+  /* DEEPER links */
+  .doors{display:grid;grid-template-columns:1fr;gap:8px;margin-top:4px}
+  @media(min-width:640px){.doors{grid-template-columns:1fr 1fr}}
+  .door{
+    display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+    border:1px solid var(--chalkline);padding:16px;
+    transition:border-color .15s,background .15s;
+  }
+  .door:hover{border-color:var(--sodium);background:var(--sodium-dim)}
+  .door .dl{min-width:0}
+  .door .dname{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:1.35rem;line-height:1;letter-spacing:.01em}
+  .door .dsub{display:block;margin-top:6px;color:var(--chalk-dim)}
+  .door .arrow{flex:none;color:var(--sodium);font-family:"JetBrains Mono",monospace;font-size:.9rem;margin-top:2px}
+
+  /* HOW I WORK */
+  .how{list-style:none;max-width:44rem}
+  .how li{display:flex;gap:14px;border-top:1px solid var(--chalkline);padding:13px 0;align-items:baseline}
+  .how li:first-child{border-top:0}
+  .how .mark{flex:none;width:20px;color:var(--sodium);font-size:.7rem}
+  .how b{font-weight:500;color:var(--chalk)}
+  .how span{color:var(--chalk-dim);font-size:.85rem}
+
+  /* PERSONAL */
+  .personal p{max-width:36rem;font-size:.92rem;line-height:1.7}
+  .personal p+p{margin-top:12px}
+
+  /* CONTACT */
+  .email{font-family:"JetBrains Mono",monospace;font-size:1rem;letter-spacing:.02em}
+  .email a{border-bottom:1px solid var(--chalkline-strong);padding-bottom:2px;transition:color .15s,border-color .15s}
+  .email a:hover{color:var(--sodium);border-color:var(--sodium)}
+
+  /* HISTORY */
+  .bullets{list-style:none;max-width:62ch}
+  .bullets li{position:relative;padding:7px 0 7px 18px;font-size:.85rem;line-height:1.6;color:var(--chalk-dim)}
+  .bullets li::before{content:"";position:absolute;left:0;top:17px;width:8px;height:1px;background:var(--sodium);opacity:.7}
+  .bullets a{color:var(--sodium)}
+  .bullets.flat li{border-top:1px solid var(--chalkline)}
+  .bullets.flat li:first-child{border-top:0}
+
+  /* QUESTIONS */
+  .qs{list-style:none;max-width:62ch}
+  .qs li{display:flex;gap:14px;align-items:baseline;border-top:1px solid var(--chalkline);padding:12px 0}
+  .qs li:first-child{border-top:0}
+  .qs .qn{flex:none;width:22px;font-size:.65rem;color:var(--sodium);opacity:.8}
+  .qs li span:last-child{font-size:.9rem;line-height:1.5;color:var(--chalk)}
+
+  /* GO DEEPER */
+  .deeper{display:grid;gap:8px;grid-template-columns:1fr;margin-top:4px}
+  @media(min-width:640px){.deeper{grid-template-columns:1fr 1fr}}
+  .deep-card{
+    display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+    border:1px solid var(--chalkline);padding:18px 16px;
+    transition:border-color .15s,background .15s;
+  }
+  .deep-card:hover{border-color:var(--sodium);background:var(--sodium-dim)}
+  .deep-card .t{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:1.35rem;line-height:1;letter-spacing:.01em}
+  .deep-card .sub{display:block;margin-top:6px;font-family:"JetBrains Mono",monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--chalk-dim)}
+  .deep-card .arrow{flex:none;color:var(--sodium);font-family:"JetBrains Mono",monospace;font-size:.9rem;margin-top:2px}
+  .nerd-note{
+    margin-top:20px;max-width:44rem;
+    font-size:.8rem;line-height:1.65;color:var(--chalk-dim);
+    border-left:2px solid var(--chalkline-strong);padding-left:14px;
+  }
+
+
+  /* FRIEND MAP */
+  .mapframe{border:1px solid var(--chalkline);background:hsl(158 45% 7%);padding:clamp(10px,2.5vw,22px);margin-top:18px}
+  .mapsvg{width:100%;height:auto;display:block}
+  .mc{fill:var(--field-2);stroke:var(--chalkline);stroke-width:.7;stroke-linejoin:round}
+  .mc.friend{fill:var(--sodium);stroke:hsl(158 45% 9% / .6)}
+  .mc.target{fill:var(--chalk);stroke:hsl(158 45% 9% / .6)}
+  .mring{fill:none;stroke:var(--chalk-dim);stroke-width:1;stroke-dasharray:4 4}
+  .mleader{stroke:var(--chalk-dim);stroke-width:1}
+  .mlabel{font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;fill:var(--chalk-dim)}
+  .mapkey{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;margin-top:14px;color:var(--chalk-dim)}
+  .mapkey .k{display:inline-flex;align-items:center;gap:8px}
+  .mapkey .sw{width:9px;height:9px;flex:none;background:var(--sodium)}
+  .mapkey .sw.still{background:var(--chalk)}
+  .mapkey .tally{margin-left:auto;color:var(--chalk)}
+  @media(max-width:640px){.mapkey .tally{margin-left:0;flex-basis:100%}.mlabel,.mring,.mleader{display:none}}
+  .countries{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin-top:14px}
+  .countries li{border:1px solid var(--chalkline);padding:6px 11px;color:var(--chalk-dim)}
+  .invite a{color:var(--sodium);border-bottom:1px solid hsl(46 78% 57% / .4)}
+  .invite a:hover{border-color:var(--sodium)}
+  .reveal{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}
+    *{transition-duration:.001ms!important}
+  }
+</style>
 </head>
-<body>
-  <main>
+<body id="top">
 
-    <!-- ============ HEADER ============ -->
-    <header class="top">
-      <h1>Dru</h1>
-      <p class="intro">
-        Applied AI generalist. This page is a short record of what I've done
-        and how I work.
-      </p>
-      <nav class="toc" aria-label="Sections">
-        <a href="#worlds">worlds</a>
-        <a href="#ai">applied ai</a>
-        <a href="#personal">personal</a>
-        <a href="#contact">contact</a>
-      </nav>
-    </header>
+<nav class="top">
+  <div class="wrap navrow">
+    <a href="#top" class="brand">dhrizza</a>
+    <div class="navlinks eyebrow">
+      <a href="#headed">Headed</a>
+      <a href="#now">Current</a>
+      <a href="#meta">Game</a>
+      <a href="#record">History</a>
+      <a href="#questions">Questions</a>
+      <a href="#work">Committed</a>
+      <a href="#personal">Personal</a>
+      <a href="#friends">Friends</a>
+      <a href="#deeper">Deeper</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
 
-    <!-- ============ 01 · WORLDS ============ -->
-    <section id="worlds" aria-labelledby="worlds-title">
-      <h2 id="worlds-title"><span class="num">01</span> Worlds</h2>
-      <p class="lead">
-        I've learned most of what I know by living inside different worlds
-        for a while: countries, jobs, institutions, a Zen center. Useful
-        knowledge tends to stay stuck in the world that produced it. Moving
-        between them is how I collect it.
-      </p>
-      <ul class="list">
-        <li>
-          <strong>At 14, in India,</strong> I noticed in-game items were
-          mispriced and flipped them for about $1,400. First taste of
-          spotting an inefficiency and acting early.
-        </li>
-        <li>
-          <strong>At 18</strong> I moved to the US alone, mid-pandemic.
-          Established residency and paid my own way through community
-          college online while working.
-        </li>
-        <li>
-          <strong>Transferred to UVA</strong> on need-based aid I targeted
-          deliberately (roughly 17% acceptance). Left in 2024, on purpose.
-        </li>
-        <li>
-          <strong>Lived with locals in 20+ countries,</strong> mostly couch
-          surfing. Kitchens and family dinners, not hotels.
-        </li>
-        <li>
-          <strong>Resident volunteer at the San Francisco Zen Center.</strong>
-          Daily meditation practice since childhood.
-        </li>
-        <li>
-          <strong>Helped a sales veteran</strong> with two decades of
-          experience build his startup from the inside.
-        </li>
-        <li>
-          <strong>Ran a dog-walking business solo:</strong> sales,
-          scheduling, client relationships. 4.9-star rating.
-        </li>
-      </ul>
-    </section>
+<div class="wrap">
 
-    <!-- ============ 02 · APPLIED AI ============ -->
-    <section id="ai" aria-labelledby="ai-title">
-      <h2 id="ai-title"><span class="num">02</span> Applied AI</h2>
-      <p class="lead">
-        I left UVA in 2024 to focus on applying AI to real problems. The
-        applied side, not the research side: knowing what models are good
-        at, where they fail, and how to build around both.
-      </p>
-      <ul class="list">
-        <li>
-          <strong>Built and launched a product:</strong> qualitative city
-          reviews for digital nomads, like Google Maps reviews but for
-          deciding where to live. Flew to Thailand to interview users in
-          person. Shut it down; kept the lessons and the speed.
-        </li>
-        <li>
-          <strong>Worked with a YC founder</strong> generating high-quality
-          POV training footage for top AI video labs.
-        </li>
-        <li>
-          <strong>Owned tech and automation</strong> (HubSpot) and parts of
-          operations at a sales-driven startup.
-        </li>
-        <li>
-          <strong>Edited video professionally</strong> for UVA's business
-          school: multi-cam, color, sound, motion graphics. Learned it on
-          the job, one-on-one.
-        </li>
-      </ul>
-      <ul class="list">
-        <li>
-          <strong>How I work:</strong> best with autonomy plus one
-          experienced person who asks hard questions. I learn fast with
-          light mentorship.
-        </li>
-        <li>
-          <strong>What I'm looking for:</strong> early-stage teams (seed to
-          Series A, especially AI-native and consumer), nonprofits, and solo
-          operators. Work that's a net positive.
-        </li>
-      </ul>
-    </section>
+  <header class="hero">
+    <div class="hero-grid">
+      <h1 class="display">dhrizza</h1>
+      <div class="hero-side">
+        <p class="tagline">An uneducated<button type="button" class="fn-toggle" aria-expanded="false" aria-controls="fn-uneducated" aria-label="Footnote on uneducated">*</button>, curious fool trying to understand what's really going on.</p>
+        <div class="footnote" id="fn-uneducated" hidden>
+          I wear this as a badge, not a wound. I don't wonder whether I'm smart. Anyone who's sincerely curious either already is, or will get there. Curiosity compounds into intelligence over time. School is one path to it, not the only one, and not the one I needed.
+        </div>
+        <p class="thesis">The internet connects us to every human being in the world. I made this to meet people like me.</p>
+        <div class="wip eyebrow"><span class="dot"></span>Work in progress</div>
+      </div>
+    </div>
+  </header>
 
-    <!-- ============ 03 · PERSONAL ============ -->
-    <section id="personal" class="personal" aria-labelledby="personal-title">
-      <h2 id="personal-title"><span class="num">03</span> personal</h2>
-      <ul class="list">
-        <li>
-          i'm donor-conceived. born from a sperm donor. i'm open about it,
-          and it's shaped how i think about identity and family. if you're
-          donor-conceived too, i'd like to hear from you:
-          <a href="mailto:bromomento2002@gmail.com">email me</a>.
-        </li>
-        <li>
-          i'm a third culture kid. born in the us, raised in bangalore, back
-          in the us on my own at 18.
-        </li>
-        <li>i meditate daily, mostly self-taught since i was a kid.</li>
-        <li>
-          i love animals, walking, and laughing at the absurdity of things.
-        </li>
-      </ul>
-    </section>
+  <section id="headed" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">Where I'm headed</h2>
+    </div>
+    <ul class="aims">
+      <li><span class="num data">01</span><div class="body"><b>Build my own thing that solves a real problem.</b><span>Something that helps people, that I own.</span></div></li>
+      <li><span class="num data">02</span><div class="body"><b>Get really good at using AI.</b><span>First job: automate video editing so making content is easy.</span></div></li>
+      <li><span class="num data">03</span><div class="body"><b>Study the big questions directly.</b><span>How consciousness works, and whether deep meditation can change how clearly you think.</span></div></li>
+      <li><span class="num data">04</span><div class="body"><b>Go to the Amazon and study life in the wild.</b><span>Partly to learn, partly to see for myself whether nature is god.</span></div></li>
+      <li><span class="num data">05</span><div class="body"><b>Share it in public.</b><span>A podcast about asking better questions, and later a book.</span></div></li>
+    </ul>
+    <div class="invite"><b>I put this online to find people like me.</b> If you think about this stuff too, feel free to reach out.</div>
+    <span class="todo">Sharpen as these get concrete</span>
+  </section>
 
-    <!-- ============ 04 · CONTACT ============ -->
-    <section id="contact" aria-labelledby="contact-title">
-      <h2 id="contact-title"><span class="num">04</span> Contact</h2>
-      <p class="lead">
-        <a href="mailto:bromomento2002@gmail.com">bromomento2002@gmail.com</a>
-      </p>
-      <nav class="socials" aria-label="Social links">
-        <!-- TODO: replace the three placeholder handles below with your real profiles -->
-        <a href="https://x.com/YOUR-HANDLE" rel="me">x</a>
-        <a href="https://instagram.com/YOUR-HANDLE" rel="me">instagram</a>
-        <a href="https://github.com/YOUR-HANDLE" rel="me">github</a>
-      </nav>
-    </section>
+  <section id="now" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">Current world</h2>
+    </div>
+    <p class="lede">Prepping for a trip to live in the Amazon rainforest and study nature, so I can understand reality a bit better.</p>
+  </section>
 
-  </main>
+  <section id="meta" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">The game I'm playing</h2>
+    </div>
+    <p class="lede">If you're simplifying, I'm a traveler. The higher-level game is experimenting with ways to bring these worlds back to other people.</p>
+    <p class="lede" style="margin-top:12px">I'm trying long-form podcasts, code (this site is one attempt), and maybe shorter video. The space is saturated, so I'm still looking for a better angle. That's why I don't make much content yet.</p>
+    <div class="invite" style="margin-top:20px"><b>The thing I keep noticing:</b> a lot of people seem to be in the wrong world for them. I'd like to help them find the right one. Worst case, it's entertaining.</div>
+  </section>
+
+  <section id="record" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">History</h2>
+      <p class="sec-note">Worlds I've been in. Newest first.</p>
+    </div>
+    <p class="nerd-note" style="margin-top:0;margin-bottom:22px">No traditional work history here, and most of my potential is still unactualized. I've recently worked out some principles that are helping me move faster. This is also only the good stuff: plenty of failures are either too boring to list or things I'm not comfortable putting on the internet.</p>
+
+    <ul class="bullets flat">
+      <li>Left the University of Virginia in 2024 to get good at applying AI in the real world.</li>
+      <li>Built and launched my own product: real reviews of cities for people picking where to live, like Google Maps reviews but for places to live. Built mostly solo with AI, and flew to Thailand to talk to users in person.</li>
+      <li>Worked with a Y Combinator founder making high-quality POV footage for top AI video labs. Shut it down when it wasn't what we wanted to build.</li>
+      <li>Lived in Bangalore for a while to save money and look for a co-founder, in one of the biggest tech hubs outside Silicon Valley.</li>
+      <li>Lived as a resident volunteer at the San Francisco Zen Center. Meditated daily, mostly to think more clearly.</li>
+      <li>Been to more than 20 countries, often for a while, usually couch surfing with locals.</li>
+      <li>Hitchhiked about 3,000 km across the Sahara, and rode an iron-ore freight train through the desert, partly to get over a fear of death.</li>
+      <li>Biked and hitchhiked through Egypt, camping by the pyramids (<a href="#" target="_blank" rel="noopener">vlogs here</a>).</li>
+      <li>Couchsurfed in Iraq, which the US government says not to visit at all. Did my own research first. Far more normal than the news makes out.</li>
+      <li>Transferred into the University of Virginia from community college on need-based aid I aimed for. About 17% get in.</li>
+      <li>Edited video for the UVA business school: multi-camera, color, sound, motion graphics.</li>
+      <li>Moved from India to the US alone at 18, during the pandemic. Set up residency, paid my own way, did community college online while working.</li>
+      <li>A sales veteran mentored me and I joined his startup at 18. Ran the tech and automation (HubSpot) and part of operations.</li>
+      <li>Built and ran an entrepreneur-in-residence program end to end, including interviewing the founders.</li>
+      <li>Ran my own dog-walking and house-sitting business. 4.9 rating on a full schedule, doing all the sales and marketing myself.</li>
+      <li>Odd jobs to get by: machine operator for a military parts supplier, Walmart shelves, Target electronics.</li>
+      <li>At 14, made money online buying and reselling in-game items, building it to over $1,400, and resold game consoles. First time I noticed the pattern: buy cheap in one place, sell where it's worth more.</li>
+      <li>Went to a strict, selective school in India that didn't fit how I learn (undiagnosed ADHD). Learned most from debates with smart friends, not from class.</li>
+    </ul>
+    <span class="todo">Add vlog link URL</span>
+  </section>
+  <section id="questions" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">Open questions</h2>
+      <p class="sec-note">The ones I keep circling back to. No answers yet.</p>
+    </div>
+    <ol class="qs">
+      <li><span class="qn data">01</span><span>Why is there something rather than nothing?</span></li>
+      <li><span class="qn data">02</span><span>What's the most profound realization humanity has had?</span></li>
+      <li><span class="qn data">03</span><span>How does a human being know they're not deluding themselves? Where do the blind spots hide?</span></li>
+      <li><span class="qn data">04</span><span>What does following your intuition actually mean, and how do you know when to trust it?</span></li>
+      <li><span class="qn data">05</span><span>Is deep thinking a calling, or a symptom of being unhappy?</span></li>
+      <li><span class="qn data">06</span><span>What does a world outside self-help look like?</span></li>
+      <li><span class="qn data">07</span><span>Is there still meaningful work to be done in philosophy and psychology?</span></li>
+      <li><span class="qn data">08</span><span>What makes some people grow from a hard experience while others only carry it?</span></li>
+      <li><span class="qn data">09</span><span>How do the few people who work on what they genuinely want end up there?</span></li>
+      <li><span class="qn data">10</span><span>Can someone make money simply as a result of becoming more themselves?</span></li>
+      <li><span class="qn data">11</span><span>Does big action necessarily mean meaningful action?</span></li>
+      <li><span class="qn data">12</span><span>How should a person act while accepting they might be wrong about everything?</span></li>
+      <li><span class="qn data">13</span><span>Which experiments are reversible, and which ones cost more than time?</span></li>
+      <li><span class="qn data">14</span><span>What power structures keep a person trapped? Who's actually in control of a life?</span></li>
+      <li><span class="qn data">15</span><span>Which worlds are welcoming to outsiders and newcomers?</span></li>
+      <li><span class="qn data">16</span><span>What's the Florida of any given country? A useful question for understanding a culture.</span></li>
+      <li><span class="qn data">17</span><span>Who comes to mind when someone says "successful," and why that person?</span></li>
+      <li><span class="qn data">18</span><span>Is climbing the career ladder still the reliable path it used to be?</span></li>
+      <li><span class="qn data">19</span><span>Would you rather speak every language, or speak to animals?</span></li>
+    </ol>
+    <span class="todo">Add more as they come up</span>
+  </section>
+
+  <section id="work" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">What I'm committed to</h2>
+    </div>
+    <ul class="how">
+      <li><span class="mark data">→</span><span><b>A meditation practice</b> without the frills.</span></li>
+      <li><span class="mark data">→</span><span><b>Learning,</b> and following my curiosity wherever it goes.</span></li>
+      <li><span class="mark data">→</span><span><b>I like to learn broadly.</b> And I go deep when I think it's necessary.</span></li>
+      <li><span class="mark data">→</span><span><b>Living by principles that are ethical</b> and grounded in something that's a net benefit for the world.</span></li>
+      <li><span class="mark data">→</span><span><b>Being high agency</b> and solving problems.</span></li>
+      <li><span class="mark data">→</span><span><b>Developing my relationship with the computer.</b> It's still early.</span></li>
+      <li><span class="mark data">→</span><span><b>I learn fast with a bit of coaching.</b> Give me one person to ask hard questions and room to work, and I move quickly.</span></li>
+      <li><span class="mark data">→</span><span><b>I have an unusual tolerance for being the outsider</b> in any situation.</span></li>
+    </ul>
+  </section>
+
+  <section id="personal" class="personal reveal">
+    <div class="sec-head">
+      <h2 class="display">Personal</h2>
+    </div>
+    <p>I was conceived by a sperm donor, and I'm also a third culture kid.</p>
+    <p>If you're either of those things, I'd love to meet you.</p>
+  </section>
+
+  <section id="friends" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">A friend in every country</h2>
+      <p class="sec-note">Where I have friends right now. The plan is slow and probably ridiculous.</p>
+    </div>
+    <p class="lede">These are the countries I have a friend in so far. I keep going until there's one in every country in the world.</p>
+
+    <div class="mapframe">
+    <svg class="mapsvg" viewBox="0 0 1200 525" role="img" aria-labelledby="map-title map-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="map-title">World map of countries where I have friends</title>
+    <desc id="map-desc">Five countries are marked as places I have a friend: India, the United States, the Netherlands, Iraq and Morocco. North Korea is marked separately as the country I am still hoping to hear from.</desc>
+    <path class="mc" id="c-fiji" d="M1185,371L1186,370L1187,371L1186,373L1184,374L1182,373L1182,372L1184,370L1185,371ZM7,365L8,365L8,367ZM1192,367L1190,368L1188,369L1188,367L1189,367L1191,366L1193,365Z"><title>Fiji</title></path>
+    <path class="mc" id="c-tanzania" d="M713,307L714,307L726,315L726,317L731,321L729,326L729,328L731,330L731,331L730,333L730,334L730,336L731,338L733,342L734,343L731,345L727,347L725,347L724,348L722,348L721,348L717,347L714,348L714,342L713,341L712,340L709,339L707,338L705,337L704,336L702,335L700,331L699,328L698,326L698,324L698,321L699,320L700,319L702,317L702,316L702,315L702,314L702,313L702,312L703,310L701,308L703,307L706,307L713,307Z"><title>Tanzania</title></path>
+    <path class="mc" id="c-w--sahara" d="M572,196L572,197L572,203L561,203L561,213L558,213L557,215L558,221L545,221L544,222L544,220L545,220L552,220L552,219L554,217L555,212L560,207L561,203L562,202L563,199L566,199L567,199L569,199L570,198L572,198L572,196Z"><title>W. Sahara</title></path>
+    <path class="mc" id="c-canada" d="M239,114L235,110L234,109L230,107L230,104L232,102L229,100L231,97L229,95L230,93L233,91L234,89L231,86L231,82L232,80L230,78L230,77L230,75L226,76L222,78L221,76L220,74L219,73L216,73L233,53L245,41L249,42L252,44L254,44L258,42L262,41L265,42L270,40L275,40L275,41L278,40L280,39L281,39L283,42L288,40L286,42L290,42L292,41L295,41L297,42L302,43L305,44L308,44L310,45L305,47L309,48L316,47L319,47L320,49L324,47L323,46L325,45L328,44L331,44L332,45L333,47L336,46L340,48L344,47L348,48L349,45L352,45L355,46L353,49L356,46L358,47L361,43L360,41L358,40L361,36L365,34L368,35L370,36L371,40L367,41L372,42L370,45L375,43L376,45L374,47L375,49L379,47L383,44L385,41L389,41L392,41L394,43L394,45L391,46L392,48L390,50L384,52L380,53L378,52L376,53L372,56L371,58L366,60L362,60L359,62L358,64L355,64L350,67L345,71L342,74L339,78L343,78L343,82L343,84L347,84L351,85L353,87L355,88L358,89L360,91L365,91L367,91L366,95L365,98L365,102L368,106L371,105L374,101L375,95L374,93L379,91L383,89L386,86L386,84L386,81L384,78L389,75L389,71L391,66L393,65L397,66L400,66L402,66L404,67L407,69L407,70L412,70L410,73L409,78L412,78L413,80L418,78L422,75L424,73L425,76L427,81L429,85L427,87L430,89L432,91L436,92L437,93L438,96L440,97L440,98L439,102L437,104L435,105L429,106L425,110L420,110L414,109L409,109L406,110L403,112L399,114L393,119L389,122L391,122L398,117L405,114L409,113L411,115L408,118L407,122L408,125L411,126L416,126L420,122L420,124L421,126L417,128L410,131L406,132L402,135L400,135L401,131L407,128L402,128L399,129L397,127L399,121L398,120L395,121L395,120L392,123L390,126L388,128L387,128L386,128L385,129L380,129L375,129L374,130L370,133L369,133L368,134L365,134L362,135L360,135L361,136L361,137L360,137L356,139L353,140L348,142L347,141L347,140L348,139L350,137L352,135L352,131L353,128L350,126L351,125L350,125L349,124L348,124L348,123L348,122L346,121L344,120L342,118L339,117L336,118L335,118L332,117L329,117L327,116L324,116L322,115L322,113L321,113L320,114L314,114L304,114L294,114L286,114L277,114L268,114L259,114L256,114L247,114L239,114ZM375,66L378,64L382,64L381,65L377,67L375,66ZM405,31L403,30L404,28L406,28L411,29L414,30L414,31L411,31L409,31L406,31L405,31ZM384,67L386,66L387,66L387,67L385,68L384,68L384,67ZM376,25L374,26L371,25L369,25L371,23L375,22L376,24L376,25ZM382,17L381,17L377,17L377,16L381,16L383,17L382,17ZM378,13L380,14L379,15L375,16L373,15L374,14L374,13L377,13L378,13ZM388,26L384,26L379,25L379,23L380,22L379,20L374,20L372,19L374,18L379,18L381,19L385,19L387,20L385,21L387,22L388,23L391,23L395,23L399,22L404,22L408,22L409,23L409,25L407,26L403,26L400,26L393,26L388,26ZM343,15L346,16L344,16L339,17L337,16L340,15L343,15ZM346,13L348,14L345,14L341,14L342,14L345,13L346,13ZM439,106L437,108L434,111L436,110L438,111L437,112L439,113L440,112L443,113L442,116L444,115L444,117L444,120L442,123L441,123L439,122L440,119L435,122L434,122L436,120L433,119L430,120L425,119L424,118L427,117L426,116L429,114L433,108L436,106L438,104L440,105L439,106ZM380,56L382,58L385,59L384,60L386,60L388,61L385,62L381,61L380,60L377,62L372,63L372,61L368,62L372,60L374,57L376,54L378,55L378,56L379,56L380,56ZM407,33L410,31L414,33L417,35L416,36L421,35L423,37L428,39L430,40L431,43L425,44L430,47L434,47L436,50L440,51L439,53L432,57L430,55L427,52L424,53L422,54L424,56L427,58L428,59L428,62L426,65L423,64L418,61L420,64L422,66L422,67L415,66L410,64L408,62L409,61L406,60L403,58L403,59L395,59L393,58L396,56L401,56L407,55L406,54L408,52L413,49L413,48L413,47L410,45L405,44L407,43L406,41L404,41L402,40L400,41L395,41L387,40L382,39L378,39L377,38L381,36L377,36L378,33L382,30L386,29L392,28L389,30L390,32L394,30L401,28L403,32L401,34L407,33ZM372,27L377,27L381,28L376,31L372,31L368,34L365,34L366,31L367,29L369,28L372,27ZM310,21L316,19L323,17L327,17L330,17L328,19L325,20L322,20L317,21L313,22L310,21ZM222,95L225,95L221,99L222,102L221,102L220,101L220,99L220,98L220,96L221,95L222,95ZM360,12L364,12L369,13L370,15L369,16L366,15L363,15L358,14L361,14L359,13L360,12ZM236,116L234,117L230,115L230,113L228,112L229,111L226,110L226,108L227,108L229,108L231,109L233,109L234,111L234,112L236,114L236,116ZM308,26L311,27L317,27L318,28L320,29L316,30L308,32L303,34L302,36L294,37L294,36L290,34L292,33L296,31L300,29L299,27L308,26ZM345,22L347,21L350,22L349,23L346,24L338,25L330,26L327,26L327,25L333,24L322,24L319,24L326,21L329,20L334,21L337,23L341,23L340,20L343,19L345,19L345,21L345,22ZM340,30L342,32L341,35L340,37L343,39L347,40L345,42L341,42L342,43L340,44L336,44L332,43L329,43L323,44L317,45L312,45L312,43L309,43L306,43L305,40L307,40L312,39L315,40L319,39L315,38L309,39L306,38L305,37L312,36L308,36L305,35L309,33L312,32L320,30L322,30L319,32L326,31L328,32L332,31L333,32L333,35L335,34L336,30L338,30L340,30ZM354,32L353,30L357,28L360,29L364,28L364,29L361,31L364,32L361,35L356,36L354,36L353,35L349,32L350,31L354,32ZM342,29L345,29L346,29L342,31L340,29L342,29ZM369,19L370,21L368,22L365,24L361,25L359,24L361,23L357,23L358,20L361,21L365,20L369,20L369,19ZM385,8L388,8L390,7L395,7L397,8L400,9L403,9L403,11L405,12L401,13L395,15L391,15L386,15L385,13L386,12L388,12L384,12L383,11L382,10L385,8ZM399,5L403,5L405,4L410,4L414,3L417,3L418,4L422,3L425,2L429,2L436,2L437,2L443,2L448,2L452,2L458,2L462,3L466,3L465,4L459,5L453,5L451,6L455,6L449,8L445,8L439,10L434,11L432,12L425,12L428,12L426,13L427,14L424,15L420,16L418,17L414,18L414,19L418,18L417,19L410,21L404,20L397,21L394,20L390,20L390,19L395,18L396,16L397,16L403,17L401,15L398,14L400,13L405,13L407,12L404,11L405,9L411,9L412,10L417,9L412,8L404,9L401,8L400,7L398,6L399,5ZM407,49L405,50L402,50L402,48L404,46L407,46L408,47L407,48L407,49ZM357,42L358,43L356,44L353,43L351,44L348,42L351,41L354,40L356,41L357,41L357,42ZM411,111L413,111L416,112L419,113L419,114L417,114L414,113L411,111ZM410,122L410,123L412,124L415,124L413,125L412,126L409,124L408,123L410,122Z"><title>Canada</title></path>
+    <path class="mc friend" id="c-united-states-of-america" d="M239,114L247,114L256,114L259,114L268,114L277,114L286,114L294,114L304,114L314,114L320,114L321,113L322,113L322,115L324,116L327,116L329,117L332,117L335,118L336,118L339,117L342,118L344,120L346,121L348,122L348,123L348,124L349,124L350,125L351,125L350,126L353,128L352,131L352,135L350,137L348,139L347,140L347,141L348,142L353,140L356,139L360,137L361,137L361,136L360,135L362,135L365,134L368,134L369,133L370,133L374,130L375,129L380,129L385,129L386,128L387,128L388,128L390,126L392,123L395,120L395,121L398,120L399,121L397,127L399,129L399,130L395,132L392,133L388,134L386,137L385,137L385,139L385,141L386,142L386,140L387,141L386,142L384,143L383,143L380,143L379,144L377,144L374,145L379,144L380,145L375,146L373,146L372,147L373,147L372,150L369,152L368,151L367,150L367,152L368,153L368,155L366,156L364,159L365,156L364,155L364,152L363,153L363,156L361,155L363,156L363,160L363,162L363,166L360,168L357,170L354,172L353,172L351,174L350,175L346,177L344,179L342,182L341,184L341,187L341,190L342,193L342,195L342,199L342,202L341,203L340,206L339,206L338,206L337,204L336,203L335,200L334,197L334,195L335,193L335,191L333,187L332,187L328,189L328,188L326,187L325,186L321,186L318,186L316,186L314,187L315,188L314,189L315,190L314,190L313,190L312,191L309,190L307,188L304,189L302,188L300,188L297,189L294,192L290,194L288,196L287,197L286,200L286,202L286,203L285,203L283,202L281,201L280,199L280,197L279,194L278,192L277,190L275,188L273,188L270,191L268,190L266,189L266,187L266,185L264,183L263,182L262,180L257,180L256,182L254,182L247,182L241,179L237,177L233,177L229,177L229,175L228,173L227,173L227,172L225,171L224,170L222,170L221,169L221,167L220,163L219,158L220,157L219,156L218,152L219,149L218,147L220,144L222,141L222,138L225,134L227,131L229,127L231,122L232,119L232,117L233,116L236,118L236,121L237,120L238,117L239,114ZM92,226L93,227L93,228L92,229L90,230L89,230L89,229L89,227L90,226L90,225L91,225L92,226ZM91,223L90,223L89,224L89,223L88,223L88,222L89,222L90,222L91,223ZM88,221L88,222L87,222L87,221L88,221ZM85,219L85,220L86,221L85,221L84,221L84,220L85,219ZM81,217L81,218L80,219L79,218L80,218L80,217L81,217ZM147,73L149,73L148,74L145,75L144,74L144,73L147,73ZM175,81L177,82L177,83L173,84L169,86L169,85L170,83L173,82L175,81ZM245,41L233,53L216,73L219,73L220,74L221,76L222,78L226,76L230,75L230,77L230,78L232,80L231,82L231,86L234,89L233,91L230,93L230,91L228,90L229,87L228,84L229,81L226,81L222,80L220,79L217,76L215,75L211,74L207,74L203,72L201,71L197,72L196,74L194,74L190,75L187,76L183,77L185,75L189,72L193,70L188,72L184,74L178,76L178,78L173,81L169,82L165,83L163,85L157,87L155,88L150,90L148,90L145,91L141,92L138,93L132,94L137,92L140,91L145,89L149,88L151,87L157,85L158,84L162,83L165,80L168,78L164,79L163,78L161,80L161,78L159,79L159,77L155,79L153,79L155,77L157,75L156,74L152,75L151,73L150,72L152,70L152,69L155,67L159,65L162,63L164,63L165,63L169,62L171,62L174,61L175,59L174,59L178,58L176,58L172,58L171,59L169,58L165,59L162,58L163,57L162,55L167,53L174,52L177,52L174,53L180,53L180,51L178,50L178,48L178,47L175,46L179,44L183,44L188,42L191,41L195,39L198,39L204,37L206,38L212,36L215,37L215,38L217,37L221,38L220,38L223,39L226,39L230,40L235,40L236,40L240,40L243,41L245,41ZM145,61L146,62L148,61L149,62L151,63L148,64L147,63L146,62L144,63L143,62L145,61Z"><title>United States of America</title></path>
+    <path class="mc" id="c-kazakhstan" d="M856,113L855,116L853,116L854,120L853,122L847,120L847,127L846,128L840,130L845,136L843,137L844,139L842,139L840,137L836,137L830,137L825,136L823,137L823,139L818,137L816,138L816,140L814,140L811,143L810,146L809,146L808,144L804,144L803,141L801,141L800,137L796,134L791,134L788,135L784,132L781,130L776,127L775,127L768,129L771,143L770,144L767,141L765,139L761,140L760,142L760,141L760,139L759,138L756,136L754,133L752,132L751,131L754,131L754,128L756,128L759,128L759,125L758,122L755,122L752,121L749,123L746,124L745,123L745,121L742,119L740,119L737,116L738,114L737,113L739,109L742,111L742,108L747,104L751,104L758,107L762,108L765,107L769,106L774,108L774,107L778,107L779,106L773,103L775,101L774,100L777,99L774,97L775,96L785,94L786,93L793,92L795,91L800,91L803,95L805,94L809,95L810,97L813,97L818,94L818,95L822,98L833,107L833,105L838,107L842,106L844,107L846,109L848,110L850,112L854,111L856,113Z"><title>Kazakhstan</title></path>
+    <path class="mc" id="c-uzbekistan" d="M771,143L768,129L775,127L776,127L781,130L784,132L788,135L791,134L796,134L800,137L801,141L803,141L804,144L808,144L809,146L810,146L811,143L814,140L816,140L817,140L815,143L818,144L820,143L824,145L821,148L818,147L817,148L816,146L816,145L812,146L812,148L811,150L809,150L808,152L811,153L812,156L811,159L809,159L807,159L806,156L802,155L798,153L796,151L792,148L789,144L788,144L785,144L784,143L783,140L778,138L776,140L774,141L775,143L771,143Z"><title>Uzbekistan</title></path>
+    <path class="mc" id="c-papua-new-guinea" d="M1070,313L1076,316L1082,318L1084,320L1086,322L1086,324L1091,327L1092,329L1089,329L1089,332L1092,334L1094,338L1096,338L1095,340L1098,341L1097,341L1100,343L1100,344L1097,344L1097,343L1094,343L1091,342L1088,340L1087,338L1085,334L1081,333L1078,334L1076,335L1076,338L1074,339L1072,339L1068,338L1069,326L1070,313ZM1108,317L1110,319L1110,321L1109,322L1108,319L1108,318L1106,317L1104,315L1102,314L1103,313L1105,314L1106,315L1107,316L1108,317ZM1104,326L1102,327L1100,328L1098,328L1095,326L1094,325L1094,324L1097,325L1099,324L1099,323L1100,322L1100,325L1102,324L1103,323L1105,322L1105,319L1107,319L1107,320L1107,322L1106,324L1104,325L1104,326ZM1115,324L1116,325L1118,327L1119,328L1118,330L1116,328L1115,326L1114,323L1115,323L1115,324Z"><title>Papua New Guinea</title></path>
+    <path class="mc" id="c-indonesia" d="M1070,313L1069,326L1068,338L1066,335L1062,334L1061,336L1057,336L1059,333L1061,331L1061,327L1059,324L1053,321L1050,320L1045,317L1044,319L1043,319L1042,318L1042,316L1040,314L1043,313L1046,313L1046,312L1041,312L1039,309L1036,309L1035,307L1040,306L1041,305L1047,306L1047,308L1048,314L1051,316L1054,312L1058,310L1061,310L1064,311L1066,313L1070,313ZM1015,338L1015,339L1013,342L1010,343L1010,341L1012,339L1015,338ZM1046,330L1046,327L1047,326L1048,324L1048,325L1048,327L1046,330ZM993,287L991,291L993,294L993,296L997,300L993,300L992,303L992,306L988,309L988,313L987,319L986,317L983,319L981,317L979,316L977,315L973,317L972,315L970,315L967,315L967,309L965,308L964,305L963,302L964,298L965,295L966,298L968,300L971,299L973,300L975,298L976,297L979,299L982,298L984,292L985,291L986,287L990,287L993,287ZM1031,314L1035,315L1036,318L1033,317L1030,316L1028,316L1026,316L1027,314L1031,314ZM1023,318L1020,317L1020,315L1023,315L1024,317L1023,318ZM1026,295L1027,297L1029,297L1029,299L1029,302L1027,302L1027,304L1028,306L1027,307L1026,304L1025,299L1025,296L1026,295ZM1010,300L1014,300L1017,297L1017,298L1015,302L1012,302L1009,302L1004,302L1001,302L1000,305L1003,309L1005,307L1011,306L1011,307L1009,307L1008,309L1005,311L1008,316L1007,317L1010,321L1010,324L1008,325L1007,324L1009,320L1005,322L1005,321L1005,319L1003,317L1003,313L1001,315L1001,319L1001,325L999,325L997,324L998,320L998,317L997,317L996,314L997,311L998,308L999,303L1000,301L1003,298L1006,299L1010,300ZM999,343L995,340L998,339L1000,341L1001,342L1000,343L999,343ZM1003,336L1005,336L1008,334L1008,337L1003,338L998,337L998,336L1001,335L1003,336ZM993,335L995,335L996,337L992,338L989,338L988,338L989,336L991,336L992,334L993,335ZM961,328L961,329L968,330L968,328L975,330L976,333L981,333L984,336L981,337L977,335L974,336L971,335L968,335L964,333L961,333L960,333L954,332L953,330L950,330L953,326L957,326L960,328L961,328ZM948,307L948,310L950,312L952,313L954,315L953,320L952,326L948,326L946,323L942,319L940,317L938,314L936,311L934,306L931,303L930,299L929,296L926,294L924,290L921,288L918,284L917,282L919,282L925,283L928,287L930,289L932,291L935,295L939,295L942,298L944,301L946,303L945,306L947,307L948,307Z"><title>Indonesia</title></path>
+    <path class="mc" id="c-argentina" d="M403,506L404,508L407,510L411,512L416,513L415,515L412,515L410,514L409,514L406,514L403,506ZM416,420L416,423L416,427L416,431L416,432L416,434L416,436L421,440L421,442L423,444L423,446L421,451L417,453L411,454L407,453L408,456L408,459L409,461L408,462L405,463L402,461L401,462L402,466L404,467L406,466L407,468L405,469L403,471L403,475L403,477L400,477L399,479L398,482L402,485L405,486L405,489L402,491L402,496L400,497L399,499L401,503L404,505L403,505L400,504L393,503L391,501L390,499L388,499L386,497L385,493L386,492L387,489L386,488L386,484L386,479L385,477L386,476L385,475L384,474L384,473L382,471L380,467L381,466L380,461L379,457L379,454L381,452L379,449L378,445L380,443L379,439L380,436L380,432L379,431L376,425L377,421L376,417L377,413L378,410L380,407L379,406L379,404L378,398L382,396L382,392L382,391L384,388L388,389L391,391L392,388L395,388L396,389L403,396L405,396L410,399L413,400L414,402L411,408L415,409L418,410L421,409L423,406L424,403L425,402L427,404L427,407L425,409L423,411L420,415L416,420Z"><title>Argentina</title></path>
+    <path class="mc" id="c-chile" d="M403,506L406,514L409,514L410,514L410,516L408,517L407,517L405,516L402,515L399,515L395,513L391,511L386,507L388,507L393,510L398,511L398,509L398,507L401,505L403,506ZM371,371L373,374L374,377L376,378L375,382L378,386L379,392L382,391L382,392L382,396L378,398L379,404L379,406L380,407L378,410L377,413L376,417L377,421L376,425L379,431L380,432L380,436L379,439L380,443L378,445L379,449L381,452L379,454L379,457L380,461L381,466L380,467L382,471L384,473L384,474L385,475L386,476L385,477L386,479L386,484L386,488L387,489L386,492L385,493L386,497L388,499L390,499L391,501L393,503L400,504L403,505L400,505L399,505L397,507L398,510L396,510L393,509L388,507L384,504L382,502L382,500L380,497L377,491L378,487L380,485L375,483L377,480L376,474L379,475L379,467L376,466L377,471L375,470L374,465L373,458L374,455L372,451L371,447L372,447L373,441L374,434L374,429L372,423L372,420L371,415L372,410L372,403L371,395L371,386L370,380L369,374L371,373L371,371Z"><title>Chile</title></path>
+    <path class="mc" id="c-dem--rep--congo" d="M698,321L698,324L698,326L699,328L700,331L702,335L701,335L696,336L695,336L694,339L695,340L694,345L694,349L695,349L697,351L698,350L698,354L696,354L694,352L693,351L691,350L690,348L688,349L685,349L684,347L682,347L681,347L680,345L679,345L678,345L676,346L674,346L673,346L674,341L673,340L672,338L673,335L672,334L672,331L668,331L669,330L667,330L667,331L665,331L664,333L663,334L661,333L660,334L658,334L657,332L656,331L655,329L654,326L645,326L643,326L642,326L641,327L641,326L641,325L642,323L642,322L643,322L644,322L645,321L647,321L647,322L649,322L651,320L652,318L653,317L653,314L655,310L656,308L658,306L659,305L659,303L659,302L659,300L660,296L660,294L661,292L661,290L662,287L663,285L665,284L668,285L670,287L672,287L675,288L676,285L678,285L681,284L683,284L684,284L684,283L685,283L688,283L690,283L691,283L693,286L695,287L696,286L697,286L699,285L700,287L703,290L703,294L704,295L703,296L702,297L700,299L700,301L699,304L699,305L699,308L698,309L697,312L697,314L698,316L698,321Z"><title>Dem. Rep. Congo</title></path>
+    <path class="mc" id="c-somalia" d="M739,310L737,307L737,292L739,288L740,287L742,287L745,284L750,284L759,272L761,269L762,267L762,265L762,261L762,259L763,259L765,259L766,258L768,257L769,257L769,258L769,260L769,262L769,264L768,268L766,272L764,277L762,283L759,287L755,292L752,295L747,299L744,302L740,307L739,309L739,310Z"><title>Somalia</title></path>
+    <path class="mc" id="c-kenya" d="M731,321L726,317L726,315L714,307L713,307L713,303L714,301L716,299L717,296L715,291L715,290L713,287L715,285L717,282L719,283L719,285L720,286L723,286L727,289L728,289L729,289L730,290L732,290L733,288L736,287L737,288L739,288L737,292L737,307L739,310L736,311L735,313L734,313L734,316L733,317L732,320L731,321Z"><title>Kenya</title></path>
+    <path class="mc" id="c-sudan" d="M682,271L679,270L678,269L678,267L678,266L678,264L676,262L676,260L676,259L675,258L674,256L674,254L673,255L673,253L674,252L673,250L674,249L674,248L674,246L676,243L679,243L678,228L678,226L682,226L681,218L695,218L707,218L720,218L721,222L721,223L721,227L723,231L724,232L726,234L725,236L722,237L721,238L721,240L720,246L720,248L720,251L719,255L717,257L715,260L715,261L714,262L713,266L713,270L713,267L712,267L712,265L712,263L710,262L710,259L710,256L708,256L708,257L706,257L707,258L707,260L706,263L704,265L702,266L700,264L698,264L698,265L696,266L696,267L693,267L692,266L690,266L689,267L688,266L686,264L686,263L683,264L682,265L681,269L680,270L679,270L682,271Z"><title>Sudan</title></path>
+    <path class="mc" id="c-chad" d="M678,228L679,243L676,243L674,246L674,248L674,249L673,250L674,252L673,253L673,255L674,254L674,256L675,258L676,259L676,260L674,261L672,262L670,267L667,268L663,268L662,269L663,270L661,271L660,273L656,274L655,273L654,273L654,274L651,275L651,274L650,271L650,269L648,269L646,266L647,265L649,265L651,265L649,261L650,259L649,256L648,254L648,252L646,252L646,249L645,248L646,243L650,239L650,234L651,226L652,224L651,223L651,222L649,221L648,215L652,213L665,220L678,228Z"><title>Chad</title></path>
+    <path class="mc" id="c-haiti" d="M365,227L365,229L365,231L364,231L365,232L365,234L362,233L361,233L359,233L357,234L356,232L356,231L359,232L362,232L363,231L361,229L362,228L360,227L361,226L363,226L365,227Z"><title>Haiti</title></path>
+    <path class="mc" id="c-dominican-rep" d="M365,234L365,232L364,231L365,231L365,229L365,227L366,226L368,226L370,227L371,227L371,229L373,229L373,230L374,230L376,231L375,233L373,232L372,232L371,232L370,233L369,233L368,232L367,233L365,235L365,234Z"><title>Dominican Rep.</title></path>
+    <path class="mc" id="c-russia" d="M809,7L813,7L818,8L827,11L829,13L824,13L817,13L812,12L808,10L805,9L809,7ZM834,12L841,14L842,15L830,16L831,12L832,12L834,12ZM928,21L934,21L945,23L945,25L936,25L933,26L926,24L925,22L928,21ZM953,23L960,24L959,25L954,25L948,24L948,23L953,23ZM940,29L941,28L943,28L948,29L949,30L946,30L940,30L940,29ZM700,8L704,8L708,8L709,9L710,8L711,7L715,8L714,8L712,9L710,9L707,10L704,9L705,8L700,8ZM665,94L659,94L656,94L656,92L660,91L663,92L664,93L665,94ZM729,28L734,26L733,24L737,23L744,21L752,20L755,19L759,19L762,20L761,21L753,22L747,24L741,27L738,30L736,33L738,35L743,38L742,38L734,38L733,36L728,35L727,34L729,33L728,31L732,29L729,28ZM1008,97L1011,100L1014,104L1018,108L1025,114L1020,113L1022,118L1027,122L1028,125L1025,123L1025,126L1022,122L1020,119L1017,115L1016,112L1013,107L1009,103L1005,98L1007,96L1004,95L1005,94L1008,97ZM998,140L997,139L996,137L998,137L996,133L993,129L995,128L999,129L999,125L998,121L998,119L998,116L994,117L992,119L987,119L984,115L979,112L973,111L970,108L968,105L966,104L962,100L958,99L953,98L950,98L946,98L945,100L947,101L948,103L948,104L947,108L948,110L945,112L941,111L938,111L935,110L934,109L931,112L927,113L925,114L921,113L918,113L915,111L912,109L909,109L905,109L903,110L898,109L896,106L892,105L889,104L885,103L884,107L886,109L885,111L880,110L877,110L874,109L871,109L868,107L864,109L860,112L857,113L856,113L854,111L850,112L848,110L846,109L844,107L842,106L838,107L833,105L833,107L822,98L818,95L818,94L813,97L810,97L809,95L805,94L803,95L800,91L795,91L793,92L786,93L785,94L775,96L774,97L777,99L774,100L775,101L773,103L779,106L778,107L774,107L774,108L769,106L765,107L762,108L758,107L751,104L747,104L742,108L742,111L739,109L737,113L738,114L737,116L740,119L742,119L745,121L745,123L746,124L745,126L743,127L740,131L744,134L744,137L748,141L747,143L746,144L745,144L742,141L741,141L739,140L738,139L735,138L734,139L733,138L728,136L724,135L721,135L717,132L713,131L710,128L712,128L714,125L712,123L716,122L716,121L713,121L713,120L715,119L717,118L718,117L717,115L718,113L717,112L713,111L711,111L709,109L707,110L703,108L702,106L699,106L699,105L699,104L697,102L694,102L693,102L693,103L692,103L691,100L690,99L693,99L694,98L693,97L691,96L689,95L687,93L688,92L687,90L684,89L683,90L682,89L679,88L678,86L677,84L676,83L677,82L676,79L677,77L677,76L679,74L676,72L681,68L683,66L684,64L680,62L680,60L678,57L679,54L675,50L677,48L672,46L672,43L674,43L678,42L681,41L685,43L692,43L703,47L705,49L706,51L704,53L700,53L688,51L686,51L691,54L691,55L692,59L696,60L698,61L698,59L696,58L697,56L704,58L706,58L704,55L709,52L711,52L714,53L715,51L712,49L713,47L710,45L718,46L720,48L717,48L717,50L720,51L724,50L724,48L728,47L736,44L738,44L736,46L740,46L741,45L746,45L749,44L753,46L755,44L751,42L752,41L760,42L764,43L775,46L776,45L772,43L772,42L769,42L769,40L766,38L766,37L769,34L769,31L770,31L777,31L779,33L778,36L780,37L782,39L784,43L788,45L788,48L785,52L788,53L789,52L791,51L791,49L792,48L790,46L790,44L787,43L785,41L786,38L781,36L784,33L782,31L784,31L786,33L787,36L790,37L787,34L791,33L796,33L801,35L797,32L795,29L799,28L805,28L810,28L807,26L808,24L811,24L814,23L820,22L820,21L826,21L829,22L833,20L837,20L837,19L838,18L842,16L847,17L844,18L850,19L852,20L854,19L860,19L867,21L870,22L871,23L869,24L865,26L864,27L867,27L871,28L873,28L876,30L876,29L880,28L888,29L890,30L900,31L898,28L904,29L908,29L913,31L917,33L916,34L922,36L927,38L926,34L932,36L935,35L941,36L942,35L946,35L941,32L943,31L967,33L972,35L981,38L990,37L996,37L999,39L1002,41L1006,42L1009,41L1013,41L1018,42L1023,42L1031,44L1033,43L1028,41L1027,40L1036,41L1041,41L1051,42L1056,44ZM144,44L147,46L150,49L147,51L148,52L150,50L157,50L158,54L154,55L149,55L145,59L144,59L141,59L141,58L138,57L139,56L137,55L134,55L134,54L136,53L132,54L131,55L128,57ZM1072,57L1071,58L1067,58L1071,60L1076,63L1078,64L1080,65L1081,66L1075,65L1070,68L1068,68L1067,71L1065,73L1065,75L1059,72L1055,75L1052,74L1051,75L1047,75L1048,77L1048,80L1050,82L1053,83L1058,88L1055,88L1057,91L1059,93L1056,94L1058,99L1055,99L1057,103L1055,107L1052,104L1047,99L1039,91L1036,86L1036,83L1035,82L1039,81L1039,77L1041,73L1043,70L1040,65L1037,65L1038,68L1035,72L1029,68L1023,69L1022,75L1026,77L1021,78L1017,78L1015,76L1010,75L1008,77L999,76L991,77L988,84L983,93L988,93L991,96L994,97L995,95L998,95L1005,99L1007,102L1008,106L1010,110L1013,116L1012,122L1012,124L1011,129L1009,133L1008,135L1005,138L1003,138L1001,136L998,139L998,140ZM155,35L157,35L160,36L159,37L155,37L152,38ZM1048,38L1046,38L1044,37L1045,35ZM700,126L701,125L703,125L704,126L705,126L705,127L706,128L709,127L709,129L706,129L702,132L700,131L701,129L697,128L698,127L700,126Z"><title>Russia</title></path>
+    <path class="mc" id="c-bahamas" d="M346,200L347,199L349,199L349,200L346,201L346,200ZM350,199L352,200L351,203L350,203L351,201L350,199ZM347,206L348,206L349,209L348,211L348,212L347,209L346,208L347,206Z"><title>Bahamas</title></path>
+    <path class="mc" id="c-falkland-is" d="M423,503L426,501L429,502L430,500L433,502L432,503L429,504L427,503L425,505L423,503Z"><title>Falkland Is.</title></path>
+    <path class="mc" id="c-norway" d="M634,11L635,10L638,10L641,11L649,13L644,14L643,16L641,17L640,19L637,19L632,17L634,16L630,15L626,13L624,11L630,10L631,11L634,11ZM678,42L674,43L672,43L673,41L669,40L666,41L665,43L663,45L660,44L657,44L654,42L652,43L651,43L651,45L646,45L645,47L643,47L641,49L639,53L636,58L637,59L636,60L633,60L632,63L632,68L634,70L634,74L631,76L630,78L628,76L623,80L620,81L616,79L615,75L613,67L616,65L623,62L628,59L632,54L638,47L642,45L648,41L654,39L658,40L661,37L666,37L670,36L678,39L675,40L678,42ZM662,10L659,11L652,12L646,11L645,10L642,10L639,9L646,8L649,9L651,8L657,9L662,10ZM657,16L652,17L648,16L650,16L648,15L653,14L654,15L657,16Z"><title>Norway</title></path>
+    <path class="mc" id="c-greenland" d="M498,3L507,2L514,2L517,1L525,1L542,1L555,3L550,4L542,4L530,4L531,5L539,4L545,5L550,4L551,5L549,7L554,6L565,5L572,5L573,7L564,8L562,9L555,9L560,10L557,12L555,13L554,17L557,19L553,19L549,20L553,21L553,24L551,24L553,27L548,27L551,28L550,29L546,30L543,30L545,32L545,33L541,32L539,33L542,34L545,36L546,38L541,39L539,37L537,36L537,38L534,39L541,40L544,40L537,43L529,45L522,46L519,46L516,48L512,51L505,54L504,54L500,54L496,55L493,57L493,60L491,62L486,65L486,67L484,70L482,74L478,74L475,71L469,71L467,69L466,66L463,61L462,59L463,56L461,53L462,51L461,49L465,46L469,44L471,43L472,40L469,42L467,42L465,43L462,41L463,39L465,38L467,38L472,38L468,36L466,35L464,36L462,35L466,32L465,31L464,29L463,25L460,24L461,23L455,21L450,21L444,21L438,21L436,20L433,18L440,18L445,17L435,17L431,15L432,14L441,13L451,12L452,11L447,10L450,9L459,7L462,6L462,5L468,5L475,4L482,4L483,5L490,4L495,5L498,5L502,6L497,4L498,3Z"><title>Greenland</title></path>
+    <path class="mc" id="c-fr--s--antarctic-lands" d="M803,491L804,492L807,493L806,495L801,495L802,493L803,492L803,491Z"><title>Fr. S. Antarctic Lands</title></path>
+    <path class="mc" id="c-timor-leste" d="M1015,338L1016,337L1018,336L1021,336L1022,335L1023,336L1022,337L1018,338L1015,339L1015,338Z"><title>Timor-Leste</title></path>
+    <path class="mc" id="c-south-africa" d="M652,414L654,412L655,413L656,415L657,415L659,416L661,415L664,413L664,399L665,400L667,403L667,406L667,407L670,407L671,405L673,404L674,402L675,401L677,401L678,402L681,403L683,402L683,401L684,399L686,398L687,397L688,394L691,391L696,389L697,389L699,389L700,389L702,389L703,395L703,397L703,402L703,403L701,402L700,403L700,404L699,405L699,407L701,409L703,408L703,407L706,407L705,409L704,413L703,414L701,416L700,417L699,419L698,421L696,424L692,428L689,430L687,432L683,433L682,434L681,435L679,434L678,435L674,434L672,434L671,434L668,436L665,436L663,438L662,438L660,437L659,437L658,435L657,434L658,432L657,429L658,429L658,426L656,422L654,419L652,414ZM693,415L691,414L690,415L688,416L686,419L688,422L690,421L690,420L692,420L693,418L694,416L693,415Z"><title>South Africa</title></path>
+    <path class="mc" id="c-lesotho" d="M693,415L694,416L693,418L692,420L690,420L690,421L688,422L686,419L688,416L690,415L691,414L693,415Z"><title>Lesotho</title></path>
+    <path class="mc" id="c-mexico" d="M229,177L233,177L237,177L241,179L247,182L254,182L256,182L257,180L262,180L263,182L264,183L266,185L266,187L266,189L268,190L270,191L273,188L275,188L277,190L278,192L279,194L280,197L280,199L281,201L283,202L285,203L286,203L284,207L283,209L282,215L281,216L282,219L282,220L282,223L284,226L285,229L286,230L289,232L290,233L293,232L296,232L298,231L300,230L303,229L304,226L305,223L305,222L308,221L311,220L314,220L316,220L317,221L316,223L314,225L313,227L314,228L313,230L312,233L311,232L310,232L308,234L307,234L304,234L301,234L301,237L299,237L300,238L302,239L302,240L302,241L298,241L296,244L296,245L296,246L296,247L292,243L291,242L288,241L286,241L284,242L282,243L280,242L277,241L274,239L272,239L269,237L266,235L265,234L264,234L260,233L259,231L256,229L255,226L254,224L256,224L255,223L256,222L257,220L256,219L256,217L255,215L253,211L250,208L249,206L247,204L247,203L248,201L246,200L245,198L245,195L243,195L242,193L241,191L241,190L240,187L240,184L240,183L238,181L237,181L236,180L235,182L235,184L234,187L235,188L237,191L237,192L237,193L238,193L238,196L239,197L239,198L240,200L241,204L241,205L242,207L241,209L243,209L244,211L245,213L244,214L243,215L242,215L242,213L240,210L238,209L237,208L238,205L238,203L236,201L235,200L234,200L233,199L232,198L230,196L231,196L232,196L234,194L234,193L232,190L231,189L230,186L230,184L229,181L229,177Z"><title>Mexico</title></path>
+    <path class="mc" id="c-uruguay" d="M416,420L418,420L422,423L423,423L427,425L429,427L432,430L431,432L432,434L431,436L428,439L425,438L424,438L420,436L418,437L416,434L416,432L416,431L416,427L416,423L416,420Z"><title>Uruguay</title></path>
+    <path class="mc" id="c-brazil" d="M432,434L431,432L432,430L429,427L427,425L423,423L422,423L418,420L416,420L420,415L423,411L425,409L427,407L427,404L425,402L424,403L424,400L424,398L424,396L423,395L422,396L420,396L420,394L419,391L418,390L416,389L415,389L411,389L411,383L410,381L411,380L410,378L411,376L411,373L410,371L408,370L408,368L408,366L402,366L400,361L401,361L401,360L400,359L400,356L398,355L396,355L395,354L392,353L391,352L387,351L383,348L383,345L383,344L383,341L379,342L377,343L374,345L374,346L372,346L370,345L368,346L366,346L366,340L363,342L361,342L359,340L357,340L358,338L356,336L354,332L355,332L355,330L357,329L356,327L357,325L357,324L361,321L364,320L367,320L369,309L369,308L368,305L367,304L367,301L368,300L369,301L369,299L367,299L367,297L374,297L375,295L376,297L376,299L377,298L379,300L382,300L382,299L385,298L386,297L386,296L389,295L389,294L386,294L385,291L386,289L384,288L385,287L387,288L390,289L391,288L393,287L397,286L398,284L398,283L400,283L400,284L400,286L401,286L402,288L401,289L400,293L401,295L401,296L403,298L405,298L406,297L408,297L409,296L411,296L412,296L413,296L414,295L413,295L413,294L415,294L416,293L418,294L420,295L421,294L422,294L422,295L424,295L425,294L426,291L428,287L429,287L430,289L432,296L433,297L434,299L431,302L432,304L438,304L438,308L441,305L445,307L450,309L452,311L451,314L455,312L462,314L467,314L472,317L476,322L479,323L481,323L483,324L484,329L485,332L483,338L482,340L477,346L475,350L473,354L472,354L471,356L472,364L471,370L471,372L470,374L470,379L467,384L467,388L464,390L464,392L460,392L455,393L453,395L449,396L446,399L443,403L443,406L444,408L444,412L443,414L441,416L439,423L436,426L434,428L434,432L432,434Z"><title>Brazil</title></path>
+    <path class="mc" id="c-bolivia" d="M370,345L372,346L374,346L374,345L377,343L379,342L383,341L383,344L383,345L383,348L387,351L391,352L392,353L395,354L396,355L398,355L400,356L400,359L401,360L401,361L400,361L402,366L408,366L408,368L408,370L410,371L411,373L411,376L410,378L411,380L410,381L410,380L406,378L403,378L398,379L397,382L397,385L396,389L395,388L392,388L391,391L388,389L384,388L382,391L379,392L378,386L375,382L376,378L374,377L373,374L371,371L373,367L371,364L372,362L371,361L372,359L372,356L372,353L373,352L370,345Z"><title>Bolivia</title></path>
+    <path class="mc" id="c-peru" d="M367,320L364,320L361,321L357,324L357,325L356,327L357,329L355,330L355,332L354,332L356,336L358,338L357,340L359,340L361,342L363,342L366,340L366,346L368,346L370,345L373,352L372,353L372,356L372,359L371,361L372,362L371,364L373,367L371,371L371,373L369,374L366,372L365,370L358,366L352,362L349,360L348,357L348,355L345,350L341,343L337,336L336,334L335,331L332,328L330,327L331,325L329,321L330,319L332,316L333,318L332,319L332,320L333,320L335,320L336,322L338,321L339,318L341,315L345,313L348,309L349,307L349,304L350,303L352,305L353,307L354,308L356,312L359,313L361,312L362,312L364,312L367,314L365,318L366,318L367,320Z"><title>Peru</title></path>
+    <path class="mc" id="c-colombia" d="M377,298L376,299L376,297L375,295L374,297L367,297L367,299L369,299L369,301L368,300L367,301L367,304L368,305L369,308L369,309L367,320L366,318L365,318L367,314L364,312L362,312L361,312L359,313L356,312L354,308L353,307L352,305L350,303L349,304L347,303L346,302L345,302L342,302L341,300L340,300L337,298L337,297L338,296L338,294L339,293L340,293L342,290L343,288L342,287L343,285L342,282L343,281L342,277L341,275L342,273L343,274L343,273L343,270L345,270L347,267L349,267L349,266L350,262L352,260L354,260L357,260L359,258L361,257L363,255L364,255L364,256L364,258L362,258L361,260L359,261L358,263L358,266L357,268L358,268L359,270L359,271L360,272L359,274L359,275L360,275L361,276L365,276L367,276L369,280L370,279L373,279L375,279L376,280L375,282L374,283L374,286L375,288L376,290L374,292L375,293L376,295L377,298Z"><title>Colombia</title></path>
+    <path class="mc" id="c-panama" d="M343,270L343,273L343,274L342,273L341,275L340,274L339,272L340,271L339,271L339,270L337,269L336,269L335,270L334,271L333,271L333,272L334,274L333,275L331,275L331,273L330,274L329,273L328,272L327,272L326,271L325,271L325,272L324,271L325,271L325,270L325,269L325,268L325,267L326,266L327,268L327,269L328,269L329,268L330,269L331,269L333,268L335,267L336,266L338,266L338,267L339,267L341,268L342,269L343,270Z"><title>Panama</title></path>
+    <path class="mc" id="c-costa-rica" d="M326,266L325,267L325,268L325,269L325,270L325,271L324,271L323,271L322,270L322,269L322,268L321,267L320,267L319,266L319,265L318,264L318,265L317,266L317,265L316,265L315,264L315,263L316,262L315,261L316,260L319,261L319,260L320,261L321,262L322,262L323,261L323,263L325,265L326,266Z"><title>Costa Rica</title></path>
+    <path class="mc" id="c-nicaragua" d="M323,261L322,262L321,262L320,261L319,260L319,261L316,260L315,259L313,258L313,256L312,255L310,253L311,253L312,253L313,252L313,250L314,250L315,250L316,249L317,250L317,249L318,249L319,248L319,247L320,246L321,247L322,246L323,246L324,246L325,245L326,245L325,246L325,247L325,248L324,249L324,251L324,253L324,254L324,255L323,256L323,257L323,258L322,259L322,260L323,261Z"><title>Nicaragua</title></path>
+    <path class="mc" id="c-honduras" d="M326,245L325,245L324,246L323,246L322,246L321,247L320,246L319,247L319,248L318,249L317,249L317,250L316,249L315,250L314,250L313,250L313,252L312,253L311,253L311,252L310,252L310,250L309,249L308,250L308,249L307,249L306,248L305,248L306,247L306,246L306,245L308,244L309,242L310,243L310,242L311,242L312,242L314,242L315,242L316,242L317,241L318,242L319,242L320,241L322,242L323,243L324,244L325,244L326,245Z"><title>Honduras</title></path>
+    <path class="mc" id="c-el-salvador" d="M305,248L306,248L307,249L308,249L308,250L309,249L310,250L310,252L309,252L307,252L306,252L305,251L303,251L302,250L304,249L304,248L305,248Z"><title>El Salvador</title></path>
+    <path class="mc" id="c-guatemala" d="M296,247L296,246L296,245L296,244L298,241L302,241L302,240L302,239L300,238L299,237L301,237L301,234L304,234L307,234L307,238L306,242L307,242L308,243L308,242L309,242L308,244L306,245L306,246L306,247L305,248L304,248L304,249L302,250L301,250L299,249L297,249L296,247Z"><title>Guatemala</title></path>
+    <path class="mc" id="c-belize" d="M307,234L308,234L310,232L311,232L311,233L310,235L310,236L310,237L309,239L308,240L308,241L307,242L306,242L307,238L307,234Z"><title>Belize</title></path>
+    <path class="mc" id="c-venezuela" d="M398,283L398,284L397,286L393,287L391,288L390,289L387,288L385,287L384,288L386,289L385,291L386,294L389,294L389,295L386,296L386,297L385,298L382,299L382,300L379,300L377,298L376,295L375,293L374,292L376,290L375,288L374,286L374,283L375,282L376,280L375,279L373,279L370,279L369,280L367,276L365,276L361,276L360,275L359,275L359,274L360,272L359,271L359,270L358,268L357,268L358,266L358,263L359,261L361,260L362,258L364,258L364,259L362,259L363,261L362,263L361,265L362,268L363,268L364,265L363,264L363,261L368,259L367,258L368,256L369,259L372,259L374,261L374,262L377,263L380,262L382,264L385,264L387,263L387,262L391,262L395,262L392,263L393,265L396,265L398,267L398,270L400,270L401,271L399,273L398,275L399,276L399,277L397,277L397,279L396,280L398,283Z"><title>Venezuela</title></path>
+    <path class="mc" id="c-guyana" d="M412,296L411,296L409,296L408,297L406,297L405,298L403,298L401,296L401,295L400,293L401,289L402,288L401,286L400,286L400,284L400,283L398,283L396,280L397,279L397,277L399,277L399,276L398,275L399,273L401,271L404,272L406,275L406,277L407,277L409,279L410,280L409,284L407,285L407,286L407,288L408,290L409,290L410,293L412,296Z"><title>Guyana</title></path>
+    <path class="mc" id="c-suriname" d="M418,294L416,293L415,294L413,294L413,295L414,295L413,296L412,296L410,293L409,290L408,290L407,288L407,286L407,285L409,284L410,280L414,281L414,280L417,280L420,281L419,284L419,287L420,289L419,291L419,293L418,294Z"><title>Suriname</title></path>
+    <path class="mc" id="c-france" d="M428,287L426,291L425,294L424,295L422,295L422,294L421,294L420,295L418,294L419,293L419,291L420,289L419,287L419,284L420,281L422,281L424,282L427,286L428,287ZM618,112L620,113L624,114L622,117L622,119L621,120L620,120L620,121L618,123L618,124L619,124L620,125L620,127L621,128L620,129L621,132L623,133L622,134L620,136L614,135L609,137L609,139L606,139L602,138L601,138L595,137L594,135L596,133L596,125L593,121L591,120L587,118L586,115L590,115L595,115L594,111L597,113L604,110L605,107L607,106L608,107L609,107L610,109L613,111L614,110L617,112L618,112ZM627,138L628,137L629,140L628,143L627,142L626,140L627,138Z"><title>France</title></path>
+    <path class="mc" id="c-ecuador" d="M349,304L349,307L348,309L345,313L341,315L339,318L338,321L336,322L335,320L333,320L332,320L332,319L333,318L332,316L334,313L333,312L332,314L330,312L331,311L330,307L331,307L332,304L333,302L333,300L335,299L337,298L340,300L341,300L342,302L345,302L346,302L347,303L349,304Z"><title>Ecuador</title></path>
+    <path class="mc" id="c-puerto-rico" d="M383,232L384,232L385,233L384,234L381,234L379,234L379,232L380,232L383,232Z"><title>Puerto Rico</title></path>
+    <path class="mc" id="c-jamaica" d="M346,232L348,232L349,233L350,234L347,234L346,235L345,234L343,233L343,232L345,232L346,232Z"><title>Jamaica</title></path>
+    <path class="mc" id="c-cuba" d="M333,214L335,214L338,214L341,215L342,217L345,216L346,217L348,220L350,221L351,221L353,222L353,223L355,223L358,225L357,226L355,226L353,226L350,226L346,227L348,224L347,223L345,223L344,222L343,220L341,220L339,219L338,218L334,217L333,217L334,216L331,216L328,218L327,218L326,219L324,219L323,219L325,217L326,216L328,215L329,214L332,214L333,214Z"><title>Cuba</title></path>
+    <path class="mc" id="c-zimbabwe" d="M702,389L700,389L699,389L697,389L696,389L694,387L691,386L691,384L691,382L689,382L686,378L685,375L684,375L683,372L687,372L688,373L689,372L691,370L694,367L695,366L695,365L697,364L700,363L700,365L703,364L704,365L705,366L706,366L708,368L708,373L707,375L707,378L707,379L707,382L706,382L705,385L702,389Z"><title>Zimbabwe</title></path>
+    <path class="mc" id="c-botswana" d="M696,389L691,391L688,394L687,397L686,398L684,399L683,401L683,402L681,403L678,402L677,401L675,401L674,402L673,404L671,405L670,407L667,407L667,406L667,403L665,400L664,399L665,388L668,388L669,374L671,374L676,372L677,374L680,372L681,372L682,371L683,372L684,375L685,375L686,378L689,382L691,382L691,384L691,386L694,387L696,389Z"><title>Botswana</title></path>
+    <path class="mc" id="c-namibia" d="M664,399L664,413L661,415L659,416L657,415L656,415L655,413L654,412L652,414L650,411L649,408L648,404L648,401L647,395L647,391L646,389L645,387L644,384L642,379L641,377L639,373L639,370L640,369L642,369L644,369L646,370L647,370L660,370L662,372L670,372L676,371L679,370L681,370L682,371L681,372L680,372L677,374L676,372L671,374L669,374L668,388L665,388L664,399Z"><title>Namibia</title></path>
+    <path class="mc" id="c-senegal" d="M545,251L543,248L542,246L543,246L545,243L546,241L547,240L549,240L550,239L552,239L554,240L556,241L558,244L560,247L560,249L561,251L562,253L562,254L562,255L561,255L560,255L559,256L556,255L555,255L549,254L548,255L547,255L545,255L544,252L547,253L548,252L549,252L550,251L551,252L553,252L554,251L554,250L552,251L551,251L550,250L549,250L548,251L545,251Z"><title>Senegal</title></path>
+    <path class="mc" id="c-mali" d="M562,255L562,254L562,253L561,251L560,249L560,247L561,246L562,244L563,244L565,245L567,244L568,244L569,243L582,243L582,241L582,240L580,223L579,207L584,207L595,215L606,224L607,225L609,227L610,227L610,230L614,229L614,238L612,241L612,243L609,244L605,244L603,245L601,246L599,246L598,245L596,245L593,247L593,248L590,250L590,251L588,252L587,251L586,252L585,255L583,258L583,259L582,261L582,263L581,264L580,264L579,263L578,263L577,264L575,264L574,263L573,264L572,263L573,262L572,261L571,262L572,260L572,259L571,258L571,257L570,256L569,256L568,256L567,257L566,258L565,257L564,256L563,256L563,257L562,257L562,255Z"><title>Mali</title></path>
+    <path class="mc" id="c-mauritania" d="M544,222L545,221L558,221L557,215L558,213L561,213L561,203L572,203L572,197L584,207L579,207L580,223L582,240L582,241L582,243L569,243L568,244L567,244L565,245L563,244L562,244L561,246L560,247L558,244L556,241L554,240L552,239L550,239L549,240L547,240L546,241L546,239L547,237L547,233L547,229L546,228L547,226L546,224L544,222Z"><title>Mauritania</title></path>
+    <path class="mc" id="c-benin" d="M609,279L606,280L605,277L606,268L605,267L605,265L604,264L603,263L603,261L604,260L605,259L606,258L607,257L608,256L609,256L612,258L612,260L613,262L612,263L612,264L611,267L610,268L609,270L609,273L609,279Z"><title>Benin</title></path>
+    <path class="mc" id="c-niger" d="M648,215L649,221L651,222L651,223L652,224L651,226L650,234L650,239L646,243L645,248L646,249L646,252L648,252L648,254L647,254L647,255L646,255L644,251L643,251L641,253L638,252L636,252L635,252L633,252L632,254L630,254L626,252L624,253L623,253L621,251L618,250L614,250L614,251L613,253L612,255L612,258L609,256L608,256L607,257L607,254L603,254L603,252L601,249L601,247L601,246L603,245L605,244L609,244L612,243L612,241L614,238L614,229L619,228L628,220L639,212L644,214L646,216L648,215Z"><title>Niger</title></path>
+    <path class="mc" id="c-nigeria" d="M609,279L609,273L609,270L610,268L611,267L612,264L612,263L613,262L612,260L612,258L612,255L613,253L614,251L614,250L618,250L621,251L623,253L624,253L626,252L630,254L632,254L633,252L635,252L636,252L638,252L641,253L643,251L644,251L646,255L647,255L648,257L648,259L645,262L644,264L644,266L643,267L642,270L641,271L640,273L639,275L639,276L637,278L635,276L634,276L632,278L631,278L629,282L628,285L625,286L624,286L622,287L620,287L618,284L617,282L614,279L612,279L609,279Z"><title>Nigeria</title></path>
+    <path class="mc" id="c-cameroon" d="M648,254L649,256L650,259L649,261L651,265L649,265L647,265L646,266L648,269L650,269L650,271L651,274L651,275L649,278L648,279L648,282L648,284L648,285L650,287L650,288L651,290L653,292L653,293L653,294L653,297L650,296L648,295L644,294L643,294L641,295L639,294L638,294L632,294L633,291L631,289L630,288L629,286L628,286L628,285L629,282L631,278L632,278L634,276L635,276L637,278L639,276L639,275L640,273L641,271L642,270L643,267L644,266L644,264L645,262L648,259L648,257L647,255L647,254L648,254Z"><title>Cameroon</title></path>
+    <path class="mc" id="c-togo" d="M603,261L603,263L604,264L605,265L605,267L606,268L605,277L606,280L604,280L603,279L602,277L602,275L602,271L602,270L601,267L601,264L600,262L600,261L603,261Z"><title>Togo</title></path>
+    <path class="mc" id="c-ghana" d="M600,261L600,262L601,264L601,267L602,270L602,271L602,275L602,277L603,279L604,280L598,283L596,284L593,285L590,284L591,282L589,279L590,275L591,272L591,266L590,263L590,261L596,261L597,261L599,260L600,261Z"><title>Ghana</title></path>
+    <path class="mc" id="c-côte-d-ivoire" d="M573,264L574,263L575,264L577,264L578,263L579,263L580,264L581,264L582,263L584,264L584,265L586,266L587,265L588,265L591,266L591,272L590,275L589,279L591,282L590,284L589,284L587,283L585,283L581,284L578,285L575,286L574,286L575,283L575,281L573,280L572,279L571,278L572,277L572,275L572,274L573,272L572,271L573,271L574,270L573,267L572,265L573,264Z"><title>Côte d'Ivoire</title></path>
+    <path class="mc" id="c-guinea" d="M555,255L556,255L559,256L560,255L561,255L562,255L562,257L563,257L563,256L564,256L565,257L566,258L567,257L568,256L569,256L570,256L571,257L571,258L572,259L572,260L571,262L572,261L573,262L572,263L573,264L572,265L573,267L574,270L573,271L572,271L573,272L572,274L571,273L570,275L569,275L569,274L569,273L568,270L567,271L566,271L565,271L565,270L565,269L565,267L564,266L563,264L560,264L560,265L559,265L558,266L558,267L556,269L555,267L553,265L552,265L552,264L551,262L551,261L550,261L551,259L552,259L553,258L554,258L554,256L555,256L555,255Z"><title>Guinea</title></path>
+    <path class="mc" id="c-guinea-bissau" d="M545,255L547,255L548,255L549,254L555,255L555,256L554,256L554,258L553,258L552,259L551,259L550,261L548,259L547,259L546,258L546,257L545,256L545,255Z"><title>Guinea-Bissau</title></path>
+    <path class="mc" id="c-liberia" d="M572,274L572,275L572,277L571,278L572,279L573,280L575,281L575,283L574,286L573,286L570,285L567,282L564,280L562,277L563,276L563,275L564,273L566,271L567,271L568,270L569,273L569,274L569,275L570,275L571,273L572,274Z"><title>Liberia</title></path>
+    <path class="mc" id="c-sierra-leone" d="M556,269L558,267L558,266L559,265L560,265L560,264L563,264L564,266L565,267L565,269L565,270L565,271L566,271L564,273L563,275L563,276L562,277L561,277L559,275L557,273L556,272L556,269Z"><title>Sierra Leone</title></path>
+    <path class="mc" id="c-burkina-faso" d="M582,263L582,261L583,259L583,258L585,255L586,252L587,251L588,252L590,251L590,250L593,248L593,247L596,245L598,245L599,246L601,246L601,247L601,249L603,252L603,254L607,254L607,257L606,258L605,259L604,260L603,261L600,261L599,260L597,261L596,261L590,261L590,263L591,266L588,265L587,265L586,266L584,265L584,264L582,263Z"><title>Burkina Faso</title></path>
+    <path class="mc" id="c-central-african-rep" d="M691,283L690,283L688,283L685,283L684,283L684,284L683,284L681,284L678,285L676,285L675,288L672,287L670,287L668,285L665,284L663,285L662,287L661,290L659,289L657,289L655,291L653,294L653,293L653,292L651,290L650,288L650,287L648,285L648,284L648,282L648,279L649,278L651,275L654,274L654,273L655,273L656,274L660,273L661,271L663,270L662,269L663,268L667,268L670,267L672,262L674,261L676,260L676,262L678,264L678,266L678,267L678,269L679,270L682,271L683,273L684,274L686,276L687,278L688,280L691,282L691,283Z"><title>Central African Rep.</title></path>
+    <path class="mc" id="c-congo" d="M661,290L661,292L660,294L660,296L659,300L659,302L659,303L659,305L658,306L656,308L655,310L653,314L653,317L652,318L651,320L649,322L647,322L647,321L645,321L644,322L643,322L642,320L641,321L640,323L637,319L640,316L638,314L639,313L642,312L642,311L644,313L647,313L648,311L648,308L648,305L646,303L648,299L647,298L644,298L643,296L644,294L648,295L650,296L653,297L653,294L655,291L657,289L659,289L661,290Z"><title>Congo</title></path>
+    <path class="mc" id="c-gabon" d="M638,294L639,294L641,295L643,294L644,294L643,296L644,298L647,298L648,299L646,303L648,305L648,308L648,311L647,313L644,313L642,311L642,312L639,313L638,314L640,316L637,319L634,315L631,311L629,307L629,306L630,305L631,302L632,299L633,299L638,299L638,294Z"><title>Gabon</title></path>
+    <path class="mc" id="c-eq--guinea" d="M632,294L638,294L638,299L633,299L632,299L631,299L632,294Z"><title>Eq. Guinea</title></path>
+    <path class="mc" id="c-zambia" d="M702,335L704,336L705,337L707,338L709,339L710,341L711,344L710,345L710,348L710,351L709,353L708,356L710,357L700,360L700,363L697,364L695,365L695,366L694,367L691,370L689,372L688,373L687,372L683,372L682,371L681,370L679,370L676,371L674,368L672,365L673,353L679,353L679,352L680,350L679,348L680,347L679,345L680,345L681,347L682,347L684,347L685,349L688,349L690,348L691,350L693,351L694,352L696,354L698,354L698,350L697,351L695,349L694,349L694,345L695,340L694,339L695,336L696,336L701,335L702,335Z"><title>Zambia</title></path>
+    <path class="mc" id="c-malawi" d="M709,339L712,340L713,341L714,342L714,348L713,351L714,356L715,356L717,357L718,360L718,365L716,365L715,368L713,366L713,363L714,361L714,360L712,359L710,357L708,356L709,353L710,351L710,348L710,345L711,344L710,341L709,339Z"><title>Malawi</title></path>
+    <path class="mc" id="c-mozambique" d="M714,348L717,347L721,348L722,348L724,348L725,347L727,347L731,345L734,343L734,345L734,349L734,352L734,358L735,360L733,363L732,365L730,368L727,369L723,371L719,375L718,376L715,379L714,380L713,382L715,385L715,388L715,389L716,389L715,392L715,394L716,395L715,396L714,398L711,399L707,401L705,403L705,404L706,405L706,407L703,407L703,405L703,403L703,402L703,397L703,395L702,389L705,385L706,382L707,382L707,379L707,378L707,375L708,373L708,368L706,366L705,366L704,365L703,364L700,365L700,363L700,360L710,357L712,359L714,360L714,361L713,363L713,366L715,368L716,365L718,365L718,360L717,357L715,356L714,356L713,351L714,348Z"><title>Mozambique</title></path>
+    <path class="mc" id="c-eswatini" d="M703,407L703,408L701,409L699,407L699,405L700,404L700,403L701,402L703,403L703,405L703,407Z"><title>eSwatini</title></path>
+    <path class="mc" id="c-angola" d="M643,322L642,322L642,323L641,325L641,326L640,323L641,321L642,320L643,322ZM641,327L642,326L643,326L645,326L654,326L655,329L656,331L657,332L658,334L660,334L661,333L663,334L664,333L665,331L667,331L667,330L669,330L668,331L672,331L672,334L673,335L672,338L673,340L674,341L673,346L674,346L676,346L678,345L679,345L680,347L679,348L680,350L679,352L679,353L673,353L672,365L674,368L676,371L670,372L662,372L660,370L647,370L646,370L644,369L642,369L640,369L639,370L638,368L639,364L640,361L640,359L641,355L642,354L644,351L645,350L646,347L645,345L644,343L644,341L643,339L643,338L644,336L643,333L642,330L641,327Z"><title>Angola</title></path>
+    <path class="mc" id="c-burundi" d="M702,313L702,314L702,315L702,316L702,317L700,319L699,320L698,321L698,316L697,314L699,314L700,312L702,313Z"><title>Burundi</title></path>
+    <path class="mc" id="c-israel" d="M713,177L713,178L711,177L711,180L712,180L711,181L711,182L712,181L713,183L712,189L711,188L709,182L710,181L709,181L710,179L711,176L711,175L712,175L712,174L713,174L713,176L713,177Z"><title>Israel</title></path>
+    <path class="mc" id="c-lebanon" d="M713,174L712,174L712,175L711,175L712,172L713,169L715,169L715,171L714,172L713,174Z"><title>Lebanon</title></path>
+    <path class="mc" id="c-madagascar" d="M764,351L765,353L765,356L766,360L766,362L766,364L765,365L764,363L764,364L764,367L764,368L763,369L762,373L761,377L759,382L756,390L754,395L752,400L750,401L747,402L745,401L742,400L742,398L742,394L741,391L741,388L742,386L743,385L743,384L745,381L746,378L745,376L745,374L744,370L746,368L746,366L748,366L750,365L751,364L753,364L755,362L757,360L759,358L758,356L760,356L762,354L762,351L763,350L764,351Z"><title>Madagascar</title></path>
+    <path class="mc" id="c-palestine" d="M712,181L711,182L711,181L712,180L711,180L711,177L713,178L713,180L712,181Z"><title>Palestine</title></path>
+    <path class="mc" id="c-gambia" d="M545,251L548,251L549,250L550,250L551,251L552,251L554,250L554,251L553,252L551,252L550,251L549,252L548,252L547,253L544,252L545,251Z"><title>Gambia</title></path>
+    <path class="mc" id="c-tunisia" d="M630,186L629,179L627,177L627,176L624,174L624,171L626,169L626,166L626,162L626,160L630,159L632,159L632,161L634,160L635,160L633,162L633,164L634,165L634,168L632,170L633,172L634,173L635,174L636,175L636,178L635,179L634,180L632,182L632,183L632,185L630,186Z"><title>Tunisia</title></path>
+    <path class="mc" id="c-algeria" d="M572,197L572,196L572,192L577,189L581,188L583,187L585,185L588,184L588,181L590,180L592,179L596,178L596,177L596,176L595,172L594,170L593,167L596,165L600,164L602,163L605,162L610,161L615,161L617,161L619,160L623,160L624,160L626,160L626,162L626,166L626,169L624,171L624,174L627,176L627,177L629,179L630,186L631,189L632,191L631,194L631,196L631,198L631,201L630,202L632,205L632,207L633,209L635,208L637,210L639,212L628,220L619,228L614,229L610,230L610,227L609,227L607,225L606,224L595,215L584,207L572,197Z"><title>Algeria</title></path>
+    <path class="mc" id="c-jordan" d="M713,178L713,177L717,178L722,174L724,179L718,181L721,185L720,186L720,187L717,188L717,189L715,190L712,190L712,189L713,183L712,181L713,180L713,178Z"><title>Jordan</title></path>
+    <path class="mc" id="c-united-arab-emirates" d="M767,209L768,209L768,210L770,210L773,210L775,210L777,207L779,205L781,202L782,204L782,207L781,207L781,209L781,210L780,211L780,212L779,214L780,215L779,216L769,214L767,210L767,209Z"><title>United Arab Emirates</title></path>
+    <path class="mc" id="c-qatar" d="M764,208L764,205L765,203L765,202L767,203L767,206L766,208L764,208Z"><title>Qatar</title></path>
+    <path class="mc" id="c-kuwait" d="M753,187L754,189L754,190L755,193L753,193L752,191L749,191L751,187L753,187Z"><title>Kuwait</title></path>
+    <path class="mc friend" id="c-iraq" d="M724,179L722,174L729,170L730,165L729,162L730,162L732,159L733,159L737,159L738,160L739,159L742,164L744,165L745,167L743,169L743,172L746,175L750,178L752,181L752,183L753,183L753,185L755,187L753,187L751,187L749,191L743,190L733,183L728,180L724,179Z"><title>Iraq</title></path>
+    <path class="mc" id="c-oman" d="M780,215L779,214L780,212L780,211L781,210L781,209L781,207L782,207L784,210L786,211L789,211L791,212L792,214L793,216L795,216L795,217L794,219L793,220L792,222L791,224L790,224L789,225L789,227L789,230L788,230L786,231L785,233L785,234L783,234L782,235L782,237L780,238L778,237L776,239L775,239L773,236L770,230L780,226L781,218L780,215ZM782,204L781,202L782,201L782,203L782,204Z"><title>Oman</title></path>
+    <path class="mc" id="c-vanuatu" d="M1151,365L1152,367L1151,367L1150,366L1151,365ZM1150,364L1149,363L1150,360L1151,361L1151,364L1150,363L1150,364Z"><title>Vanuatu</title></path>
+    <path class="mc" id="c-cambodia" d="M940,256L938,252L940,248L944,248L947,248L950,250L951,247L955,248L956,251L956,256L951,259L952,261L949,261L946,263L943,262L942,260L940,256Z"><title>Cambodia</title></path>
+    <path class="mc" id="c-thailand" d="M947,248L944,248L940,248L938,252L940,256L936,254L934,254L934,251L931,251L931,256L930,261L929,265L929,268L932,268L933,271L934,275L936,277L938,277L940,279L939,281L937,281L936,279L934,278L933,278L932,277L931,275L929,273L927,271L927,273L926,271L926,269L927,265L928,261L930,257L928,254L928,252L927,250L925,247L924,245L925,244L926,241L924,238L921,235L919,232L921,231L922,227L924,227L925,225L927,224L929,226L929,228L932,228L931,232L932,236L935,233L936,234L938,234L939,233L941,233L944,236L945,240L948,243L948,246L947,248Z"><title>Thailand</title></path>
+    <path class="mc" id="c-laos" d="M955,248L951,247L950,250L947,248L948,246L948,243L945,240L944,236L941,233L939,233L938,234L936,234L935,233L932,236L931,232L932,228L929,228L929,226L927,224L928,223L930,220L930,221L932,221L931,217L933,216L935,219L937,223L941,223L943,226L941,227L940,229L945,231L948,236L951,239L953,242L955,245L955,248Z"><title>Laos</title></path>
+    <path class="mc" id="c-myanmar" d="M927,224L925,225L924,227L922,227L921,231L919,232L921,235L924,238L926,241L925,244L924,245L925,247L927,250L928,252L928,254L930,257L928,261L927,265L926,262L927,259L926,257L926,253L924,251L923,246L921,241L920,238L918,240L914,243L912,242L910,241L911,237L910,233L906,228L907,227L905,227L902,223L901,220L902,221L902,218L903,217L903,215L903,214L903,210L905,211L906,208L906,206L907,203L907,200L910,198L913,198L912,196L913,195L912,194L914,194L916,196L917,197L918,200L918,203L916,206L917,211L920,210L921,214L924,215L923,218L926,219L927,220L930,219L930,220L928,223L927,224Z"><title>Myanmar</title></path>
+    <path class="mc" id="c-vietnam" d="M946,263L949,261L952,261L951,259L956,256L956,251L955,248L955,245L953,242L951,239L948,236L945,231L940,229L941,227L943,226L941,223L937,223L935,219L933,216L934,215L937,215L940,215L942,213L944,214L947,215L947,217L949,219L952,220L949,223L947,227L946,230L949,234L953,239L957,241L959,244L961,251L962,258L959,261L956,263L953,266L949,270L948,268L949,265L946,263Z"><title>Vietnam</title></path>
+    <path class="mc target" id="c-north-korea" d="M997,139L998,140L997,140L996,141L996,142L997,145L996,146L996,147L995,148L993,148L993,149L993,151L995,152L997,154L997,155L996,155L994,155L993,157L992,157L990,156L990,157L989,157L988,156L987,156L987,154L987,153L987,151L986,150L984,150L982,149L984,146L986,144L987,141L989,143L992,143L990,141L994,139L994,137L997,139Z"><title>North Korea</title></path>
+    <path class="mc" id="c-south-korea" d="M992,157L993,157L994,155L996,155L997,155L997,154L1002,158L1003,161L1005,165L1005,167L1002,168L1000,170L998,170L997,168L996,165L993,161L995,160L992,157Z"><title>South Korea</title></path>
+    <path class="mc" id="c-mongolia" d="M857,113L860,112L864,109L868,107L871,109L874,109L877,110L880,110L885,111L886,109L884,107L885,103L889,104L892,105L896,106L898,109L903,110L905,109L909,109L912,109L915,111L918,113L921,113L925,114L927,113L931,112L934,109L935,110L938,111L941,111L941,114L941,117L942,119L944,118L947,119L949,118L952,119L956,121L956,123L954,122L949,123L948,124L947,126L943,128L941,130L938,129L936,129L935,131L937,133L938,134L936,135L935,137L932,139L928,139L923,140L920,142L919,141L915,141L910,139L906,138L902,139L896,138L893,138L890,136L887,132L885,132L881,129L876,129L873,128L871,127L870,122L867,119L862,118L859,116L857,113Z"><title>Mongolia</title></path>
+    <path class="mc friend" id="c-india" d="M912,194L913,195L912,196L913,198L910,198L907,200L907,203L906,206L906,208L905,211L903,210L903,214L903,215L903,217L902,218L899,212L898,212L898,214L896,212L897,210L898,210L899,207L897,206L894,206L891,206L890,203L888,203L885,201L885,204L888,206L886,207L885,208L887,210L887,212L889,215L890,218L890,219L888,219L884,220L884,223L883,225L879,228L875,233L873,235L870,238L870,239L869,240L866,242L865,242L864,245L865,250L866,253L864,257L865,263L863,263L862,266L863,268L860,269L859,271L858,272L854,269L853,263L851,260L850,258L848,254L846,249L846,247L842,241L840,234L839,229L838,224L837,221L832,223L830,223L825,218L827,216L826,215L821,212L823,209L830,209L829,206L827,204L826,201L824,199L827,195L830,195L833,191L834,187L837,183L836,181L838,178L835,176L834,174L832,170L833,169L838,170L841,169L844,166L848,170L849,174L850,176L851,177L848,177L850,181L854,184L859,186L857,188L856,192L860,193L863,195L868,197L872,198L875,200L877,200L881,201L884,201L884,200L883,197L883,195L885,195L886,198L889,200L891,199L894,200L896,199L896,197L895,196L897,195L899,192L902,190L905,191L907,189L909,192L909,193L912,194Z"><title>India</title></path>
+    <path class="mc" id="c-bangladesh" d="M902,218L902,221L901,220L902,223L900,221L900,219L899,217L897,215L894,215L895,217L894,219L893,218L892,219L891,218L890,218L889,215L887,212L887,210L885,208L886,207L888,206L885,204L885,201L888,203L890,203L891,206L894,206L897,206L899,207L898,210L897,210L896,212L898,214L898,212L899,212L902,218Z"><title>Bangladesh</title></path>
+    <path class="mc" id="c-bhutan" d="M895,196L896,197L896,199L894,200L891,199L889,200L886,198L887,195L889,194L891,195L893,195L895,196Z"><title>Bhutan</title></path>
+    <path class="mc" id="c-nepal" d="M883,195L883,197L884,200L884,201L881,201L877,200L875,200L872,198L868,197L863,195L860,193L856,192L857,188L859,186L860,186L863,187L866,189L868,190L870,192L872,192L875,194L879,195L883,195Z"><title>Nepal</title></path>
+    <path class="mc" id="c-pakistan" d="M844,166L841,169L838,170L833,169L832,170L834,174L835,176L838,178L836,181L837,183L834,187L833,191L830,195L827,195L824,199L826,201L827,204L829,206L830,209L823,209L821,212L819,211L817,208L815,205L809,206L803,206L799,206L800,202L804,200L803,198L802,197L801,194L798,192L796,190L794,188L800,190L803,189L805,190L806,189L808,189L812,188L811,184L813,182L815,182L815,181L818,180L819,181L820,180L819,177L820,175L822,174L820,172L823,172L824,170L823,169L825,167L824,165L823,164L824,162L827,161L831,161L832,160L834,159L837,161L838,164L844,166Z"><title>Pakistan</title></path>
+    <path class="mc" id="c-afghanistan" d="M807,159L809,159L811,159L812,160L814,159L815,159L816,158L818,158L818,157L818,156L819,154L821,155L821,156L822,156L822,160L824,161L825,160L826,160L828,158L830,158L833,158L834,159L832,160L831,161L827,161L824,162L823,164L824,165L825,167L823,169L824,170L823,172L820,172L822,174L820,175L819,177L820,180L819,181L818,180L815,181L815,182L813,182L811,184L812,188L808,189L806,189L805,190L803,189L800,190L794,188L797,184L796,182L794,181L793,179L791,176L792,173L791,173L791,170L792,165L795,167L797,166L798,164L800,164L802,163L802,160L804,159L804,157L806,158L807,159Z"><title>Afghanistan</title></path>
+    <path class="mc" id="c-tajikistan" d="M811,159L812,156L811,153L808,152L809,150L811,150L812,148L812,146L816,145L816,146L817,148L818,147L817,149L814,148L814,150L817,150L821,151L827,151L829,154L830,154L832,155L832,156L833,158L830,158L828,158L826,160L825,160L824,161L822,160L822,156L821,156L821,155L819,154L818,156L818,157L818,158L816,158L815,159L814,159L812,160L811,159Z"><title>Tajikistan</title></path>
+    <path class="mc" id="c-kyrgyzstan" d="M816,140L816,138L818,137L823,139L823,137L825,136L830,137L836,137L840,137L842,139L844,139L844,140L840,142L839,144L835,144L835,147L831,146L830,147L827,149L828,150L827,151L821,151L817,150L814,150L814,148L817,149L818,147L821,148L824,145L820,143L818,144L815,143L817,140L816,140Z"><title>Kyrgyzstan</title></path>
+    <path class="mc" id="c-turkmenistan" d="M760,142L761,140L765,139L767,141L770,144L771,143L775,143L774,141L776,140L778,138L783,140L784,143L785,144L788,144L789,144L792,148L796,151L798,153L802,155L806,156L807,159L806,158L804,157L804,159L802,160L802,163L800,164L798,164L797,166L795,167L792,165L791,162L788,162L784,158L782,158L778,156L775,156L774,156L772,156L770,158L768,159L767,156L766,152L764,151L764,149L762,148L762,145L765,146L768,145L765,142L764,140L761,141L762,144L760,142Z"><title>Turkmenistan</title></path>
+    <path class="mc" id="c-iran" d="M755,187L753,185L753,183L752,183L752,181L750,178L746,175L743,172L743,169L745,167L744,165L742,164L739,159L737,156L738,155L736,151L738,150L739,151L740,153L743,153L744,153L747,150L748,150L749,151L748,153L751,155L753,158L756,159L758,160L763,161L768,160L768,159L770,158L772,156L774,156L775,156L778,156L782,158L784,158L788,162L791,162L792,165L791,170L791,173L792,173L791,176L793,179L794,181L796,182L797,184L794,188L796,190L798,192L801,194L802,197L803,198L804,200L800,202L799,206L793,205L789,204L785,204L783,199L782,198L779,199L776,201L772,200L769,197L765,195L763,192L760,187L758,187L756,186L755,187Z"><title>Iran</title></path>
+    <path class="mc" id="c-syria" d="M713,177L713,176L713,174L714,172L715,171L715,169L713,169L712,166L713,165L714,164L715,163L714,161L716,161L719,160L721,161L723,161L727,160L728,160L732,159L730,162L729,162L730,165L729,170L722,174L717,178L713,177Z"><title>Syria</title></path>
+    <path class="mc" id="c-armenia" d="M744,153L743,153L741,151L741,150L740,150L739,149L738,150L737,148L734,147L734,146L733,144L738,144L738,145L740,145L739,146L741,148L740,149L742,150L743,150L744,153Z"><title>Armenia</title></path>
+    <path class="mc" id="c-sweden" d="M630,78L631,76L634,74L634,70L632,68L632,63L633,60L636,60L637,59L636,58L639,53L641,49L643,47L645,47L646,45L651,45L651,43L652,43L656,45L660,47L661,52L662,53L658,54L656,57L656,59L652,62L648,65L646,69L648,72L651,74L649,78L646,79L646,85L645,88L641,88L640,90L637,91L635,87L633,83L630,78Z"><title>Sweden</title></path>
+    <path class="mc" id="c-belarus" d="M679,88L682,89L683,90L684,89L687,90L688,92L687,93L689,95L691,96L693,97L694,98L693,99L690,99L691,100L692,103L689,103L688,104L689,105L687,105L685,105L684,104L683,105L682,105L679,104L676,104L673,103L671,103L669,104L668,105L668,103L667,101L668,100L668,99L667,98L667,96L670,96L673,95L673,93L675,91L675,90L676,89L679,88Z"><title>Belarus</title></path>
+    <path class="mc" id="c-ukraine" d="M692,103L693,103L693,102L694,102L697,102L699,104L699,105L699,106L702,106L703,108L707,110L709,109L711,111L713,111L717,112L718,113L717,115L718,117L717,118L715,119L713,120L713,121L711,122L709,123L707,123L704,124L705,126L704,126L703,125L701,125L700,126L699,125L695,124L694,123L692,123L691,125L689,128L687,127L686,128L685,127L686,126L686,124L687,124L689,124L689,123L688,122L687,120L686,120L686,118L685,117L683,117L681,116L679,117L677,117L677,118L675,118L674,119L672,118L670,118L668,118L667,118L667,117L665,116L666,115L666,114L667,114L666,112L668,109L670,109L670,108L668,105L669,104L671,103L673,103L676,104L679,104L682,105L683,105L684,104L685,105L687,105L689,105L688,104L689,103L692,103Z"><title>Ukraine</title></path>
+    <path class="mc" id="c-poland" d="M667,96L667,98L668,99L668,100L667,101L668,103L668,105L670,108L670,109L668,109L666,112L667,114L666,114L663,112L661,113L660,113L658,113L657,112L655,113L655,112L654,110L652,110L651,109L649,109L649,110L647,109L647,108L645,107L644,106L642,104L642,103L641,101L640,99L641,98L640,97L642,95L646,94L650,93L653,93L653,94L656,94L659,94L665,94L666,95L667,96Z"><title>Poland</title></path>
+    <path class="mc" id="c-austria" d="M650,117L650,119L648,119L649,120L648,122L648,123L645,123L644,124L641,124L637,123L636,121L633,122L633,123L631,122L630,122L628,121L629,120L628,120L629,119L631,121L631,120L634,120L636,119L637,119L638,120L639,119L638,117L639,116L640,115L642,116L644,114L645,114L647,115L649,115L650,116L650,117Z"><title>Austria</title></path>
+    <path class="mc" id="c-hungary" d="M665,116L667,117L667,118L665,119L664,122L663,124L660,125L658,125L656,126L655,126L653,126L650,124L649,124L649,122L648,122L649,120L648,119L650,119L650,117L652,118L653,119L655,118L657,117L658,117L660,117L660,116L661,116L665,117L665,116Z"><title>Hungary</title></path>
+    <path class="mc" id="c-moldova" d="M679,117L681,116L683,117L685,117L686,118L686,120L687,120L688,122L689,123L689,124L687,124L686,124L686,126L685,127L684,126L684,124L684,122L682,120L681,119L679,117Z"><title>Moldova</title></path>
+    <path class="mc" id="c-romania" d="M685,127L686,128L687,127L689,128L689,129L688,130L687,130L686,134L684,134L682,132L679,133L677,134L673,134L670,133L669,134L668,132L668,131L668,130L667,131L665,130L664,129L663,128L662,126L660,125L663,124L664,122L665,119L667,118L668,118L670,118L672,118L674,119L675,118L677,118L677,117L679,117L681,119L682,120L684,122L684,124L684,126L685,127Z"><title>Romania</title></path>
+    <path class="mc" id="c-lithuania" d="M675,90L675,91L673,93L673,95L670,96L667,96L666,95L665,94L664,93L663,92L660,91L659,88L662,87L667,87L670,87L670,88L672,88L675,90Z"><title>Lithuania</title></path>
+    <path class="mc" id="c-latvia" d="M676,83L677,84L678,86L679,88L676,89L675,90L672,88L670,88L670,87L667,87L662,87L659,88L659,86L660,83L663,82L665,85L667,85L667,82L670,81L671,82L674,83L676,83Z"><title>Latvia</title></path>
+    <path class="mc" id="c-estonia" d="M677,76L677,77L676,79L677,82L676,83L674,83L671,82L670,81L667,82L667,80L665,79L664,77L667,76L671,75L674,76L677,76Z"><title>Estonia</title></path>
+    <path class="mc" id="c-germany" d="M640,97L641,98L640,99L641,101L642,103L642,104L644,106L642,107L642,106L641,107L639,108L638,109L636,109L636,111L637,112L638,113L640,115L639,116L638,117L639,119L638,120L637,119L636,119L634,120L631,120L631,121L629,119L628,120L625,119L622,119L622,117L624,114L620,113L618,112L618,111L618,110L618,107L617,104L619,104L620,102L620,99L620,98L620,97L623,97L625,96L624,94L624,92L626,93L628,92L628,93L631,94L631,96L634,95L636,94L639,95L640,97Z"><title>Germany</title></path>
+    <path class="mc" id="c-bulgaria" d="M668,132L669,134L670,133L673,134L677,134L679,133L682,132L684,134L686,134L685,136L684,139L685,141L683,140L680,141L680,143L677,144L675,142L672,143L670,143L670,141L668,139L669,139L668,138L669,137L670,136L668,134L668,133L668,132Z"><title>Bulgaria</title></path>
+    <path class="mc" id="c-greece" d="M682,167L682,168L678,168L678,167L674,167L674,165L676,166L678,166L681,166L681,167L682,167ZM670,143L672,143L675,142L677,144L680,143L680,141L681,142L681,145L680,145L678,145L676,145L673,146L675,148L673,149L672,149L670,147L669,147L670,150L672,152L671,152L673,154L674,155L675,157L672,156L673,158L671,159L672,162L670,162L668,161L666,158L665,155L664,153L662,151L662,150L663,148L663,147L664,146L664,145L666,145L667,144L669,144L670,143Z"><title>Greece</title></path>
+    <path class="mc" id="c-turkey" d="M739,159L738,160L737,159L733,159L732,159L728,160L727,160L723,161L721,161L719,160L716,161L714,161L715,163L714,164L713,165L712,163L713,161L711,162L708,161L706,163L702,163L699,161L695,161L695,163L693,163L690,161L686,161L684,157L682,155L683,152L681,150L684,147L688,147L689,144L695,144L699,142L702,141L707,141L713,143L717,145L721,144L724,145L727,143L730,142L733,144L734,146L734,147L737,148L738,150L736,151L738,155L737,156L739,159ZM680,141L683,140L685,141L686,142L689,143L688,144L685,145L683,146L681,148L680,146L680,145L681,145L681,142L680,141Z"><title>Turkey</title></path>
+    <path class="mc" id="c-albania" d="M664,145L664,146L663,147L663,148L662,150L661,149L660,147L659,146L659,143L660,142L659,141L659,140L660,138L660,139L661,138L662,139L662,140L663,141L662,143L663,144L664,145Z"><title>Albania</title></path>
+    <path class="mc" id="c-croatia" d="M649,124L650,124L653,126L655,126L656,126L657,127L658,128L657,130L656,129L654,129L651,128L650,128L649,129L648,128L647,130L649,132L650,133L651,134L652,135L654,137L656,138L656,139L653,137L651,136L648,135L646,132L645,130L645,129L643,128L642,130L641,129L641,127L643,127L644,127L645,127L646,128L646,126L647,126L647,125L649,124Z"><title>Croatia</title></path>
+    <path class="mc" id="c-switzerland" d="M628,120L629,120L628,121L630,122L631,122L631,124L630,124L627,124L627,125L625,125L623,126L622,126L620,125L619,124L618,124L618,123L620,121L620,120L621,120L622,119L625,119L628,120Z"><title>Switzerland</title></path>
+    <path class="mc" id="c-luxembourg" d="M618,110L618,111L618,112L617,112L617,110L618,110Z"><title>Luxembourg</title></path>
+    <path class="mc" id="c-belgium" d="M618,107L618,110L617,110L617,112L614,110L613,111L610,109L609,107L608,107L607,106L610,105L612,106L614,105L616,107L618,107Z"><title>Belgium</title></path>
+    <path class="mc friend" id="c-netherlands" d="M620,98L620,99L620,102L619,104L617,104L618,107L616,107L614,105L612,106L610,105L611,104L613,99L617,97L620,98Z"><title>Netherlands</title></path>
+    <path class="mc" id="c-portugal" d="M572,141L574,140L575,140L576,142L577,142L578,141L580,141L580,143L579,144L579,147L578,148L578,150L577,150L578,152L577,155L578,156L578,157L577,158L577,160L576,161L574,160L572,160L573,157L573,155L571,155L571,153L571,151L572,149L572,148L573,145L573,144L573,142L572,141Z"><title>Portugal</title></path>
+    <path class="mc" id="c-spain" d="M577,160L577,158L578,157L578,156L577,155L578,152L577,150L578,150L578,148L579,147L579,144L580,143L580,141L578,141L577,142L576,142L575,140L574,140L572,141L573,138L572,137L576,134L580,135L584,135L587,135L589,135L594,135L595,137L601,138L602,138L606,139L609,139L609,141L606,144L602,145L602,146L600,148L599,151L600,153L599,155L598,158L596,158L593,161L589,161L586,161L584,163L583,164L582,164L581,162L580,160L577,160Z"><title>Spain</title></path>
+    <path class="mc" id="c-ireland" d="M582,96L583,99L580,102L575,104L571,104L574,100L572,96L576,93L579,91L579,93L578,95L580,95L582,96Z"><title>Ireland</title></path>
+    <path class="mc" id="c-new-caledonia" d="M1141,385L1143,387L1144,389L1143,390L1141,389L1139,387L1138,385L1137,382L1136,381L1138,381L1139,382L1140,384L1141,385Z"><title>New Caledonia</title></path>
+    <path class="mc" id="c-solomon-is" d="M1138,344L1138,345L1136,345L1135,343L1137,344L1138,344ZM1137,340L1136,341L1134,338L1134,335L1135,335L1136,338L1137,340ZM1134,341L1132,341L1130,341L1130,340L1130,339L1132,339L1133,340L1134,341ZM1131,334L1131,335L1131,336L1129,335L1127,333L1126,332L1127,331L1128,332L1131,334ZM1123,330L1124,332L1123,332L1122,331L1121,329L1123,330Z"><title>Solomon Is.</title></path>
+    <path class="mc" id="c-new-zealand" d="M1144,458L1141,460L1138,463L1135,465L1135,464L1134,463L1138,460L1138,458L1136,456L1137,455L1140,453L1142,450L1143,448L1143,445L1144,445L1143,443L1142,440L1143,437L1144,437L1145,439L1146,440L1145,443L1145,447L1147,445L1148,446L1147,449L1148,450L1150,450L1153,449L1154,449L1152,453L1149,455L1147,455L1145,456L1145,458L1144,458ZM1113,472L1117,470L1120,468L1123,465L1125,464L1127,462L1130,460L1130,462L1130,463L1133,462L1133,463L1132,465L1129,467L1125,469L1123,471L1123,473L1120,473L1117,474L1114,477L1110,481L1106,482L1104,483L1101,483L1100,482L1097,482L1098,480L1101,478L1108,474L1110,473L1113,472Z"><title>New Zealand</title></path>
+    <path class="mc" id="c-australia" d="M1052,461L1054,461L1052,466L1050,467L1048,470L1048,469L1044,472L1042,472L1042,468L1043,466L1043,462L1044,461L1046,461L1048,462L1050,462L1052,461ZM1000,428L996,430L993,431L991,433L990,434L987,434L985,435L982,434L980,435L978,435L975,437L974,437L972,438L970,439L968,439L966,439L963,436L962,436L963,433L965,433L965,432L966,431L967,428L967,426L967,422L967,419L968,417L967,415L967,414L966,412L967,409L966,406L966,404L967,406L966,402L968,403L968,405L969,403L968,400L968,399L967,397L968,395L969,394L970,392L970,390L972,387L972,390L974,388L977,386L978,385L981,383L983,383L984,383L986,382L989,381L990,380L992,380L996,379L998,378L999,375L1001,373L1002,372L1002,370L1005,367L1006,370L1007,369L1006,367L1008,365L1009,366L1010,363L1012,361L1013,360L1015,359L1015,358L1016,359L1017,358L1018,357L1020,357L1022,358L1023,361L1026,361L1028,361L1027,359L1029,356L1031,355L1030,354L1032,352L1034,350L1036,351L1039,350L1039,348L1037,347L1039,346L1041,347L1042,349L1045,350L1046,349L1048,350L1050,349L1051,350L1052,349L1053,351L1052,353L1051,355L1049,355L1050,356L1048,358L1047,360L1047,361L1049,363L1052,364L1053,366L1055,368L1056,368L1057,369L1058,370L1061,372L1063,370L1064,368L1065,366L1066,364L1067,361L1067,359L1068,358L1068,356L1069,353L1069,352L1069,351L1070,349L1071,347L1071,346L1073,344L1073,346L1073,349L1074,349L1074,351L1075,353L1075,355L1074,356L1075,359L1077,358L1078,360L1080,361L1079,363L1079,366L1079,368L1080,368L1080,372L1079,374L1080,376L1083,378L1085,380L1087,382L1086,383L1087,385L1087,390L1089,389L1090,390L1091,390L1090,394L1092,396L1093,398L1094,401L1094,404L1093,406L1092,409L1093,412L1091,415L1090,417L1088,421L1087,423L1085,426L1082,429L1079,431L1077,434L1075,436L1073,439L1070,441L1068,444L1067,447L1066,448L1064,449L1060,450L1057,451L1054,453L1052,454L1050,453L1049,452L1050,450L1048,451L1044,453L1042,452L1040,452L1039,451L1036,450L1035,448L1036,445L1036,443L1035,442L1032,441L1034,439L1035,436L1032,439L1029,440L1031,438L1033,435L1035,433L1036,431L1032,434L1029,435L1027,438L1025,437L1026,435L1025,432L1024,430L1025,429L1022,427L1019,427L1017,425L1011,425L1007,427L1003,428L1000,428Z"><title>Australia</title></path>
+    <path class="mc" id="c-sri-lanka" d="M872,274L872,278L870,279L867,280L866,277L865,272L866,265L868,267L870,270L872,274Z"><title>Sri Lanka</title></path>
+    <path class="mc" id="c-china" d="M959,233L956,232L956,228L957,227L960,226L962,226L963,227L962,229L962,231L959,233ZM844,139L843,137L845,136L840,130L846,128L847,127L847,120L853,122L854,120L853,116L855,116L856,113L857,113L859,116L862,118L867,119L870,122L871,127L873,128L876,129L881,129L885,132L887,132L890,136L893,138L896,138L902,139L906,138L910,139L915,141L919,141L920,142L923,140L928,139L932,139L935,137L936,135L938,134L937,133L935,131L936,129L938,129L941,130L943,128L947,126L948,124L949,123L954,122L956,123L956,121L952,119L949,118L947,119L944,118L942,119L941,117L941,114L941,111L945,112L948,110L947,108L948,104L948,103L947,101L945,100L946,98L950,98L953,98L958,99L962,100L966,104L968,105L970,108L973,111L979,112L984,115L987,119L992,119L994,117L998,116L998,119L998,121L999,125L999,129L995,128L993,129L996,133L998,137L996,137L997,139L994,137L994,139L990,141L992,143L989,143L987,141L986,144L984,146L982,149L978,150L977,152L974,153L975,151L974,149L975,147L972,145L970,146L968,149L967,151L964,151L963,153L966,156L969,157L970,158L972,159L975,157L978,158L980,158L982,160L978,161L977,163L975,165L974,168L978,170L981,174L984,178L987,181L988,183L986,185L988,187L990,188L990,191L990,194L989,194L987,199L986,204L984,208L981,212L977,215L973,216L972,217L970,216L969,218L965,220L961,221L961,225L959,225L958,222L958,221L954,219L952,220L949,219L947,217L947,215L944,214L942,213L940,215L937,215L934,215L933,216L931,217L932,221L930,221L930,220L930,219L927,220L926,219L923,218L924,215L921,214L920,210L917,211L916,206L918,203L918,200L917,197L916,196L914,194L912,194L909,193L909,192L907,189L905,191L902,190L899,192L897,195L895,196L893,195L891,195L889,194L887,195L886,198L885,195L883,195L879,195L875,194L872,192L870,192L868,190L866,189L863,187L860,186L859,186L854,184L850,181L848,177L851,177L850,176L849,174L848,170L844,166L838,164L837,161L834,159L833,158L832,156L832,155L830,154L829,154L827,151L828,150L827,149L830,147L831,146L835,147L835,144L839,144L840,142L844,140L844,139Z"><title>China</title></path>
+    <path class="mc" id="c-taiwan" d="M995,209L994,215L993,218L991,215L990,212L991,208L993,205L995,207L995,209Z"><title>Taiwan</title></path>
+    <path class="mc" id="c-italy" d="M631,122L633,123L633,122L636,121L637,123L641,124L641,125L642,127L639,126L637,128L637,130L637,131L638,133L641,135L643,138L646,141L649,141L649,142L651,144L654,145L656,147L657,148L656,149L654,147L652,147L651,149L653,151L653,153L651,153L650,156L649,156L649,155L649,153L650,152L648,150L647,148L646,148L645,146L643,145L642,144L639,144L637,142L634,139L632,137L631,133L629,133L627,132L625,132L624,134L622,134L623,133L621,132L620,129L621,128L620,127L620,125L622,126L623,126L625,125L627,125L627,124L630,124L631,124L631,122ZM646,156L648,155L647,158L648,159L647,161L645,160L643,160L639,158L639,156L643,156L646,156ZM627,145L628,144L630,146L630,152L628,151L627,153L626,152L626,147L625,145L627,145Z"><title>Italy</title></path>
+    <path class="mc" id="c-denmark" d="M628,92L626,93L624,92L623,90L623,86L623,85L624,84L626,84L627,83L629,82L629,84L629,85L629,86L631,87L630,88L629,88L627,90L628,92ZM635,88L636,90L634,93L631,91L631,89L635,88Z"><title>Denmark</title></path>
+    <path class="mc" id="c-united-kingdom" d="M582,96L580,95L578,95L579,93L579,91L581,91L584,94L582,96ZM591,98L592,96L590,93L586,93L586,92L587,90L586,89L584,91L584,87L583,86L584,82L586,79L588,79L592,79L589,83L592,82L595,82L594,85L591,88L594,89L597,93L599,94L601,98L601,100L605,100L605,103L603,104L604,106L602,108L598,108L593,109L591,108L589,110L587,109L585,111L583,110L588,106L590,105L586,104L585,103L588,102L586,100L587,97L591,98Z"><title>United Kingdom</title></path>
+    <path class="mc" id="c-iceland" d="M562,52L562,54L564,56L561,59L553,61L550,62L547,61L540,60L543,59L537,57L542,57L542,56L537,55L539,53L543,52L546,54L551,53L554,53L558,52L562,52Z"><title>Iceland</title></path>
+    <path class="mc" id="c-azerbaijan" d="M741,141L742,141L745,144L746,144L747,143L748,141L750,143L752,146L754,146L755,147L752,148L752,151L752,152L751,153L751,155L748,153L749,151L748,150L747,150L744,153L743,150L742,150L740,149L741,148L739,146L740,145L738,145L738,144L738,143L741,144L742,144L743,144L741,142L741,141ZM743,153L740,153L739,151L738,150L739,149L740,150L741,150L741,151L743,153Z"><title>Azerbaijan</title></path>
+    <path class="mc" id="c-georgia" d="M721,135L724,135L728,136L733,138L734,139L735,138L738,139L739,140L741,141L741,142L743,144L742,144L741,144L738,143L738,144L733,144L730,142L727,143L727,141L726,138L724,137L722,136L721,135Z"><title>Georgia</title></path>
+    <path class="mc" id="c-philippines" d="M1000,254L998,251L1001,251L1002,253L1001,256L1000,254ZM1007,265L1007,264L1008,261L1009,261L1009,264L1011,260L1011,264L1010,265L1009,267L1008,268L1006,266L1007,265ZM1020,271L1020,273L1021,275L1020,279L1018,275L1017,277L1018,280L1017,282L1013,279L1012,277L1013,275L1011,273L1010,275L1008,274L1006,277L1005,275L1006,272L1008,271L1010,270L1012,271L1014,270L1014,269L1017,269L1016,266L1019,267L1020,269L1020,271ZM993,267L989,271L991,268L993,266L995,263L996,259L997,262L995,265L993,267ZM1001,233L1001,234L1003,237L1002,240L1001,242L1001,245L1002,248L1004,248L1005,248L1010,250L1009,252L1011,253L1011,255L1008,253L1006,251L1006,252L1003,250L1000,251L999,250L998,248L999,247L998,246L998,248L996,245L995,244L995,240L996,241L996,235L996,232L998,232L1000,233L1001,232L1001,233ZM1004,259L1004,257L1006,259L1008,259L1008,260L1007,262L1005,263L1004,261L1004,259ZM1015,256L1017,261L1014,260L1014,261L1016,263L1014,264L1014,261L1013,261L1012,259L1014,259L1014,258L1011,255L1014,255L1015,256Z"><title>Philippines</title></path>
+    <path class="mc" id="c-malaysia" d="M933,278L934,278L936,279L937,281L939,281L940,279L941,280L943,282L944,284L945,287L944,289L945,290L945,292L946,294L947,297L947,298L945,298L942,296L938,293L937,291L935,288L935,285L934,283L934,280L933,278ZM993,287L990,287L986,287L985,291L984,292L982,298L979,299L976,297L975,298L973,300L971,299L968,300L966,298L965,295L968,297L970,296L971,293L973,292L976,291L979,288L980,286L982,288L983,286L984,287L984,284L984,282L987,280L988,277L990,276L991,278L992,280L994,281L997,282L997,284L994,284L995,286L993,287Z"><title>Malaysia</title></path>
+    <path class="mc" id="c-brunei" d="M984,282L984,284L984,287L983,286L982,288L980,286L982,284L984,282Z"><title>Brunei</title></path>
+    <path class="mc" id="c-slovenia" d="M641,124L644,124L645,123L648,123L648,122L649,122L649,124L647,125L647,126L646,126L646,128L645,127L644,127L643,127L641,127L642,127L641,125L641,124Z"><title>Slovenia</title></path>
+    <path class="mc" id="c-finland" d="M672,43L672,46L677,48L675,50L679,54L678,57L680,60L680,62L684,64L683,66L681,68L676,72L671,73L667,74L662,75L661,73L658,72L658,68L656,65L657,63L659,61L665,57L667,56L666,55L662,53L661,52L660,47L656,45L652,43L654,42L657,44L660,44L663,45L665,43L666,41L669,40L673,41L672,43Z"><title>Finland</title></path>
+    <path class="mc" id="c-slovakia" d="M666,114L666,115L665,116L665,117L661,116L660,116L660,117L658,117L657,117L655,118L653,119L652,118L650,117L650,116L650,115L652,115L653,115L653,114L653,113L654,113L654,112L655,112L655,113L657,112L658,113L660,113L661,113L663,112L666,114Z"><title>Slovakia</title></path>
+    <path class="mc" id="c-czechia" d="M644,106L645,107L647,108L647,109L649,110L649,109L651,109L652,110L654,110L655,112L654,112L654,113L653,113L653,114L653,115L652,115L650,115L650,116L649,115L647,115L645,114L644,114L642,116L640,115L638,113L637,112L636,111L636,109L638,109L639,108L641,107L642,106L642,107L644,106Z"><title>Czechia</title></path>
+    <path class="mc" id="c-eritrea" d="M720,248L720,246L721,240L721,238L722,237L725,236L726,234L728,238L729,242L731,244L736,247L738,249L740,252L741,253L743,254L742,255L740,255L739,254L738,251L736,250L735,249L732,247L730,247L729,246L727,247L725,245L724,248L720,248Z"><title>Eritrea</title></path>
+    <path class="mc" id="c-japan" d="M1038,152L1037,155L1039,159L1039,163L1040,164L1040,167L1037,169L1031,169L1028,174L1026,172L1024,169L1019,170L1016,172L1013,172L1017,175L1017,182L1016,183L1014,182L1013,178L1011,177L1009,174L1011,173L1012,171L1014,169L1015,166L1021,165L1025,166L1025,159L1028,161L1031,157L1032,155L1032,151L1029,146L1029,144L1032,143L1036,148L1038,152ZM1036,133L1038,132L1041,136L1037,137L1036,141L1030,138L1031,142L1027,142L1025,139L1025,136L1028,135L1026,130L1025,127L1031,131L1034,132L1036,133ZM1018,174L1018,171L1020,172L1021,170L1024,171L1025,172L1024,175L1022,173L1021,174L1021,177L1018,176L1018,174Z"><title>Japan</title></path>
+    <path class="mc" id="c-paraguay" d="M410,381L411,383L411,389L415,389L416,389L418,390L419,391L420,394L420,396L422,396L423,395L424,396L424,398L424,400L424,403L423,406L421,409L418,410L415,409L411,408L414,402L413,400L410,399L405,396L403,396L396,389L397,385L397,382L398,379L403,378L406,378L410,380L410,381Z"><title>Paraguay</title></path>
+    <path class="mc" id="c-yemen" d="M770,230L773,236L775,239L772,240L772,242L772,243L769,245L764,246L761,249L759,249L758,249L756,251L754,252L752,252L751,252L750,253L749,253L749,254L747,254L746,255L744,254L743,252L743,250L742,249L742,246L740,244L741,244L741,243L741,242L741,240L742,239L742,237L743,235L744,236L745,236L749,236L752,237L754,236L755,238L756,237L758,233L761,231L770,230Z"><title>Yemen</title></path>
+    <path class="mc" id="c-saudi-arabia" d="M712,190L715,190L717,189L717,188L720,187L720,186L721,185L718,181L724,179L728,180L733,183L743,190L749,191L752,191L753,193L755,193L757,196L758,197L759,198L762,200L762,202L762,203L762,204L763,205L764,207L764,208L766,208L767,209L767,210L769,214L779,216L780,215L781,218L780,226L770,230L761,231L758,233L756,237L755,238L754,236L752,237L749,236L745,236L744,236L743,235L742,237L742,239L741,240L740,238L739,237L739,236L737,234L735,231L734,228L732,225L730,225L728,221L727,218L727,216L725,212L723,210L721,209L720,207L720,206L719,204L718,203L717,200L715,197L713,195L711,195L711,193L711,191L712,190Z"><title>Saudi Arabia</title></path>
+    <path class="mc" id="c-n--cyprus" d="M703,167L703,166L705,166L708,165L706,167L707,168L706,167L706,168L705,168L705,167L704,167L703,167Z"><title>N. Cyprus</title></path>
+    <path class="mc" id="c-cyprus" d="M703,167L704,167L705,167L705,168L706,168L706,167L707,168L704,169L702,169L701,167L703,167Z"><title>Cyprus</title></path>
+    <path class="mc friend" id="c-morocco" d="M593,167L594,170L595,172L596,176L596,177L596,178L592,179L590,180L588,181L588,184L585,185L583,187L581,188L577,189L572,192L572,196L572,198L570,198L569,199L567,199L566,199L563,199L562,202L561,203L560,207L555,212L554,217L552,219L552,220L545,220L544,220L545,219L546,218L547,216L547,214L548,212L550,209L551,208L552,206L552,204L553,202L556,200L558,196L559,195L563,194L565,192L567,191L569,187L569,183L570,179L571,177L573,175L576,173L578,171L580,167L581,165L584,165L586,166L589,166L592,167L593,167Z"><title>Morocco</title></path>
+    <path class="mc" id="c-egypt" d="M720,218L707,218L695,218L681,218L681,204L680,190L679,187L679,185L679,183L680,181L684,181L687,182L690,183L692,184L694,183L696,181L698,181L701,182L702,184L702,182L705,183L707,183L709,182L711,188L712,189L711,191L710,194L710,196L709,196L708,195L706,193L704,188L703,188L705,192L707,196L710,202L711,204L713,206L716,211L715,211L715,214L719,217L720,218Z"><title>Egypt</title></path>
+    <path class="mc" id="c-libya" d="M681,218L682,226L678,226L678,228L665,220L652,213L648,215L646,216L644,214L639,212L637,210L635,208L633,209L632,207L632,205L630,202L631,201L631,198L631,196L631,194L632,191L631,189L630,186L632,185L632,183L632,182L634,180L635,179L636,178L636,175L640,176L641,176L644,177L648,178L650,182L653,183L657,184L661,186L662,185L664,183L663,180L664,178L666,177L668,176L672,177L674,179L675,179L676,179L679,180L680,181L679,183L679,185L679,187L680,190L681,204L681,218Z"><title>Libya</title></path>
+    <path class="mc" id="c-ethiopia" d="M759,272L750,284L745,284L742,287L740,287L739,288L737,288L736,287L733,288L732,290L730,290L729,289L728,289L727,289L723,286L720,286L719,285L719,283L717,282L715,278L714,277L713,275L712,273L710,273L711,271L712,271L713,270L713,266L714,262L715,261L715,260L717,257L719,255L720,251L720,248L724,248L725,245L727,247L729,246L730,247L732,247L735,249L736,250L738,251L739,254L740,255L739,257L738,258L738,259L738,261L740,261L741,260L742,261L741,262L742,265L744,266L745,268L756,272L759,272Z"><title>Ethiopia</title></path>
+    <path class="mc" id="c-djibouti" d="M740,255L742,255L743,254L743,255L743,257L741,258L743,259L742,261L741,260L740,261L738,261L738,259L738,258L739,257L740,255Z"><title>Djibouti</title></path>
+    <path class="mc" id="c-somaliland" d="M762,259L762,261L762,265L762,267L761,269L759,272L756,272L745,268L744,266L742,265L741,262L742,261L743,259L744,260L745,261L746,263L748,263L751,262L755,261L758,260L759,260L760,259L762,259Z"><title>Somaliland</title></path>
+    <path class="mc" id="c-uganda" d="M713,307L706,307L703,307L701,308L699,309L699,308L699,305L699,304L700,301L700,299L702,297L703,296L704,295L703,294L703,290L704,289L706,289L709,289L711,289L713,287L715,290L715,291L717,296L716,299L714,301L713,303L713,307Z"><title>Uganda</title></path>
+    <path class="mc" id="c-rwanda" d="M701,308L703,310L702,312L702,313L700,312L699,314L697,314L697,312L698,309L699,308L699,309L701,308Z"><title>Rwanda</title></path>
+    <path class="mc" id="c-bosnia-and-herz" d="M656,138L654,137L652,135L651,134L650,133L649,132L647,130L648,128L649,129L650,128L651,128L654,129L656,129L657,130L658,130L658,131L659,133L659,135L658,135L657,136L656,138Z"><title>Bosnia and Herz.</title></path>
+    <path class="mc" id="c-macedonia" d="M668,139L670,141L670,143L669,144L667,144L666,145L664,145L663,144L662,143L663,141L665,140L666,140L667,140L668,139Z"><title>Macedonia</title></path>
+    <path class="mc" id="c-serbia" d="M656,126L658,125L660,125L662,126L663,128L664,129L665,130L667,131L668,130L668,131L668,132L668,133L668,134L670,136L669,137L668,138L669,139L668,139L667,140L666,140L666,139L666,138L665,137L664,137L664,136L663,136L662,137L661,138L662,137L660,136L659,136L658,135L659,135L659,133L658,131L658,130L657,130L658,128L657,127L656,126Z"><title>Serbia</title></path>
+    <path class="mc" id="c-montenegro" d="M661,138L660,139L660,138L659,140L659,141L658,141L657,140L656,139L656,138L657,136L658,135L659,136L660,136L662,137L661,138Z"><title>Montenegro</title></path>
+    <path class="mc" id="c-kosovo" d="M663,141L662,140L662,139L661,138L662,137L663,136L664,136L664,137L665,137L666,138L666,139L666,140L665,140L663,141Z"><title>Kosovo</title></path>
+    <path class="mc" id="c-trinidad-and-tobago" d="M395,262L397,261L398,261L398,264L395,265L394,264L395,263L395,262Z"><title>Trinidad and Tobago</title></path>
+    <path class="mc" id="c-s--sudan" d="M703,290L700,287L699,285L697,286L696,286L695,287L693,286L691,283L691,282L688,280L687,278L686,276L684,274L683,273L682,271L679,270L680,270L681,269L682,265L683,264L686,263L686,264L688,266L689,267L690,266L692,266L693,267L696,267L696,266L698,265L698,264L700,264L702,266L704,265L706,263L707,260L707,258L706,257L708,257L708,256L710,256L710,259L710,262L712,263L712,265L712,267L713,267L713,270L712,271L711,271L710,273L712,273L713,275L714,277L715,278L717,282L715,285L713,287L711,289L709,289L706,289L704,289L703,290Z"><title>S. Sudan</title></path>
+    <g class="mannot">
+    <circle class="mring" cx="990" cy="147" r="19"/>
+    <line class="mleader" x1="1004" y1="134" x2="1024" y2="117"/>
+    <text class="mlabel" x="1028" y="120">North Korea</text>
+    </g>
+    </svg>
+    </div>
+    <div class="mapkey eyebrow">
+      <span class="k"><span class="sw"></span>a friend here</span>
+      <span class="k"><span class="sw still"></span>still looking</span>
+      <!-- TODO: keep this tally in step with the map. -->
+      <span class="tally data">5 / 195</span>
+    </div>
+
+    <!-- TODO: as the list grows, add the country here and give its path class="mc friend". -->
+    <ul class="countries eyebrow">
+      <li>India</li>
+      <li>United States</li>
+      <li>Netherlands</li>
+      <li>Iraq</li>
+      <li>Morocco</li>
+    </ul>
+
+    <div class="invite"><b>If you're from North Korea, I especially want to meet you.</b> You're the hardest country on this map to reach, and the one I'd most like to hear from. <a href="mailto:dhruv.ambashtha@gmail.com?subject=Hello%20from%20North%20Korea">Say hello</a> — I'll write back.</div>
+  </section>
+
+  <section id="deeper" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">Go deeper</h2>
+      <p class="sec-note">Each of these opens into its own corner. More coming as I write them.</p>
+    </div>
+    <div class="deeper">
+      <a class="deep-card" href="#">
+        <span><span class="t">Adventure</span><span class="sub">travel</span></span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="deep-card" href="#">
+        <span><span class="t">Understanding reality</span><span class="sub">meta</span></span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="deep-card" href="#">
+        <span><span class="t">Interesting people</span><span class="sub">the ones worth studying</span></span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="deep-card" href="#">
+        <span><span class="t">Forever books</span><span class="sub">and podcasts, videos, articles — everything I've found useful</span></span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+    <span class="todo">Add destination links for each</span>
+    <p class="nerd-note">A note on why this exists: a personal website is, by definition, a nerd thing to make. I know that. This whole site is for the nerdy side of me, and it's here so other nerds can find me. I don't think anyone else is going to read this far anyway.</p>
+  </section>
+
+  <footer id="contact" class="reveal">
+    <div class="sec-head">
+      <h2 class="display">Get in touch</h2>
+    </div>
+    <p class="email"><a href="mailto:dhruv.ambashtha@gmail.com">dhruv.ambashtha@gmail.com</a></p>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    var els=document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.08});
+    els.forEach(function(e){io.observe(e)});
+  })();
+  (function(){
+    var btn=document.querySelector('.fn-toggle');
+    if(!btn)return;
+    btn.addEventListener('click',function(){
+      var note=document.getElementById(btn.getAttribute('aria-controls'));
+      var open=btn.getAttribute('aria-expanded')==='true';
+      btn.setAttribute('aria-expanded',String(!open));
+      if(note){note.hidden=open;}
+    });
+  })();
+</script>
 </body>
 </html>

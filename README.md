@@ -1,16 +1,20 @@
-# Personal website
+# dhrizza
 
-A single-page static site. One `index.html`, one `style.css`. No build
-step, no framework, no JS.
+A single-page personal site, live at [dhrizza.com](https://dhrizza.com).
+Plain HTML with inline CSS and a bit of vanilla JS — no build step, no
+dependencies, nothing to install.
 
-- Near-black with one restrained accent, Space Grotesk + Space Mono.
-  No animation, no texture; quiet on purpose.
-- Sections have anchor IDs for deep links: `#worlds`, `#ai`, `#personal`,
-  `#contact`.
-- Search `index.html` for `TODO` to find the social-link placeholders
-  (X, Instagram, GitHub) that still need real URLs.
+## Structure
 
-## Preview locally
+```
+index.html            The whole site (styles, markup, and script all inline)
+CNAME                 Custom domain for GitHub Pages
+.github/workflows/    Pages deploy, runs on every push to main
+```
+
+Fonts (Anton, Space Grotesk, JetBrains Mono) load from Google Fonts.
+
+## Run it locally
 
 Open `index.html` in a browser, or serve the folder:
 
@@ -21,11 +25,24 @@ python3 -m http.server 8000
 
 ## Deploy
 
-**Vercel:** `npm i -g vercel && vercel` from this folder, or import the repo
-at vercel.com. No configuration needed; it detects a static site.
+Pushing to `main` deploys to GitHub Pages via
+`.github/workflows/deploy-pages.yml`, which serves the repo root at the
+domain in `CNAME`. Nothing to build.
 
-**Netlify:** drag this folder onto app.netlify.com/drop, or connect the repo.
-Build command: none. Publish directory: `/` (root).
+## The friend map
 
-**Custom domain:** add the domain in your host's dashboard and point your
-DNS at it (both hosts walk you through the exact records).
+The world map in the "A friend in every country" section is an inline SVG
+with one `<path>` per country, generated from
+[Natural Earth](https://www.naturalearthdata.com/) 110m data (public domain)
+and projected with Natural Earth 1. To add a country as the list grows:
+
+1. Give its path `class="mc friend"` — paths carry `id="c-<country-name>"`.
+2. Add it to the `.countries` list.
+3. Update the tally in `.mapkey`.
+
+## Still to fill in
+
+The site marks its own gaps with `+ TODO`-style tags. Currently:
+
+- Vlog link URL in the History section
+- Destination links for the four "Go deeper" cards
