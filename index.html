@@ -74,12 +74,6 @@
   header.hero{padding:56px 0 40px;border-bottom:1px solid var(--chalkline)}
   .hero-grid{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 48px;margin-top:14px}
   h1.display{font-size:clamp(4rem,14vw,8rem);text-transform:none}
-  .hero-name{display:flex;flex-direction:column;gap:18px;align-items:flex-start}
-  .portrait{
-    width:clamp(112px,20vw,176px);aspect-ratio:1;
-    border:1px solid var(--chalkline);
-    background:var(--field-2) url("assets/img/portrait.jpg") center/cover no-repeat;
-  }
   .hero-side{max-width:24rem}
   .tagline{font-size:.95rem;line-height:1.55;color:var(--chalk)}
   .fn-toggle{
@@ -273,12 +267,7 @@
 
   <header class="hero">
     <div class="hero-grid">
-      <div class="hero-name">
-        <!-- Self-hosted. Add the file at assets/img/portrait.jpg (see
-             assets/img/README.md); until it exists this shows an empty frame. -->
-        <div class="portrait" role="img" aria-label="dhrizza"></div>
-        <h1 class="display">dhrizza</h1>
-      </div>
+      <h1 class="display">dhrizza</h1>
       <div class="hero-side">
         <p class="tagline">An uneducated<button type="button" class="fn-toggle" aria-expanded="false" aria-controls="fn-uneducated" aria-label="Footnote on uneducated">*</button>, curious fool trying to understand what's really going on.</p>
         <div class="footnote" id="fn-uneducated" hidden>

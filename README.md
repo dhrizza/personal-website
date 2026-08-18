@@ -8,7 +8,6 @@ dependencies, nothing to install.
 
 ```
 index.html            The whole site (styles, markup, and script all inline)
-assets/img/           Images — see the README in there
 CNAME                 Custom domain for GitHub Pages
 .github/workflows/    Pages deploy, runs on every push to main
 ```
@@ -45,6 +44,5 @@ and projected with Natural Earth 1. To add a country as the list grows:
 
 The site marks its own gaps with `+ TODO`-style tags. Currently:
 
-- Portrait photo at `assets/img/portrait.jpg` (the hero frame is empty until then)
 - Vlog link URL in the History section
 - Destination links for the four "Go deeper" cards
