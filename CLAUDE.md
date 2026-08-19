@@ -1,9 +1,9 @@
 # Working preferences
 
-## Pull requests
+## Pushing changes
 
-Open a pull request by default. Any time I ask for a change, the work isn't
-done until it's committed, pushed to the working branch, and a PR is open with
-the link handed back to me — don't wait for me to ask for one.
+Commit and push straight to `main`. The site deploys from `main`
+(`.github/workflows/deploy-pages.yml`), so anything left on a side branch
+never reaches dhrizza.com.
 
-Skip the PR only if I explicitly say not to open one.
+Don't open a pull request unless I ask for one.
