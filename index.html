@@ -154,9 +154,14 @@
   .personal p+p{margin-top:12px}
 
   /* CONTACT */
-  .contactlink{font-family:"JetBrains Mono",monospace;font-size:1rem;letter-spacing:.02em}
-  .contactlink a{border-bottom:1px solid var(--chalkline-strong);padding-bottom:2px;transition:color .15s,border-color .15s}
-  .contactlink a:hover{color:var(--sodium);border-color:var(--sodium)}
+  .contactlink{font-family:"JetBrains Mono",monospace;font-size:1rem;letter-spacing:.02em;margin-top:18px}
+  .contactlink a{
+    display:inline-flex;align-items:center;gap:10px;
+    border:1px solid var(--chalkline-strong);padding:12px 20px;
+    text-transform:uppercase;font-size:.8rem;letter-spacing:.12em;
+    transition:color .15s,border-color .15s,background .15s;
+  }
+  .contactlink a:hover{color:var(--sodium);border-color:var(--sodium);background:var(--sodium-dim)}
 
   /* QUESTIONS */
   .qs{list-style:none;max-width:62ch}
@@ -338,7 +343,7 @@
       <h2 class="display">Personal</h2>
     </div>
     <p>I was conceived by a sperm donor, and I'm also a third culture kid.</p>
-    <p>If you're either of those things, I'd love to meet you.</p>
+    <p>If you're either of those things, I'd especially love to talk because it's rare.</p>
   </section>
 
   <section id="friends" class="reveal">
@@ -555,7 +560,7 @@
       <li>Australia</li>
     </ul>
 
-    <div class="invite"><b>If you're from North Korea, I especially want to meet you.</b> You're the hardest country on this map to reach, and the one I'd most like to hear from.</div>
+    <div class="invite"><b>If you're from North Korea, I especially want to talk.</b> You're the hardest country on this map to reach, and the one I'd most like to hear from.</div>
   </section>
 
   <section id="deeper" class="reveal">
@@ -587,7 +592,7 @@
       <h2 class="display">Contact</h2>
     </div>
     <div class="invite"><b>I put this online to meet new people.</b> If you resonate with or are curious about anything because of this website, please feel free to reach out.</div>
-    <p class="contactlink"><a href="https://x.com/dhrizza" target="_blank" rel="me noopener">x.com/dhrizza</a></p>
+    <p class="contactlink"><a href="https://x.com/dhrizza" target="_blank" rel="me noopener">x.com/dhrizza <span class="arrow" aria-hidden="true">&#8594;</span></a></p>
   </footer>
 
 </div>
