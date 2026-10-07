@@ -1,10 +1,8 @@
 # Images
 
-Put the hero picture here as **`portrait.jpg`**.
+The site is drawn, not photographed — every illustration in `index.html` is
+inline SVG, so nothing in here is loaded by the page right now.
 
-`.portrait` in `index.html` loads `assets/img/portrait.jpg` and crops it
-square (`object-fit: cover`). If the file is missing the element removes
-itself, so the hero falls back to the wordmark alone rather than showing a
-broken image.
-
-Roughly 800px square is plenty at the size it renders.
+If you ever want a photo back (a portrait in the hero, say), drop it in this
+folder and reference it from `index.html`. Keep it around 2000px on the long
+edge at ~80% quality so the page stays light.
